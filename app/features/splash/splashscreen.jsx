@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import LottieView from "lottie-react-native";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 const Splash = () => {
   const navigation = useNavigation();
@@ -15,7 +15,7 @@ const Splash = () => {
   return (
     <View className="flex-1 bg-white">
       <LottieView
-        source={require("../../assets/welcome.json")}
+        source={require("../../assets/splash/welcome.json")}
         speed={1}
         autoPlay
         loop
@@ -24,5 +24,4 @@ const Splash = () => {
     </View>
   );
 };
-
 export default Splash;

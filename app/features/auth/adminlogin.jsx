@@ -20,7 +20,6 @@ const Adminlogin = () => {
           shouldPlay
           style={{ width: "100%", height: 300 }}
         />
-
         {/* Login Section */}
         <View className="w-80 h-80 mt-8  rounded-3xl shadow-lg bg-white elevation-5">
           <Text className="font-extrabold text-2xl text-purple-600 text-center mb-5 mt-3">
@@ -63,5 +62,4 @@ const Adminlogin = () => {
     </ScrollView>
   );
 };
-
 export default Adminlogin;

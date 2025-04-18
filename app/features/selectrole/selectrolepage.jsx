@@ -1,14 +1,14 @@
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Video } from "expo-av";
-import Wardenlogin from "../auth/wardenlogin";
-import { useNavigation } from "expo-router";
 
+import { useNavigation } from "@react-navigation/native";
+import { Asset } from "expo-asset";
 const Selectrole = () => {
   const navigation = useNavigation();
-  const login = () => {
-    navigation.navigate("Wardenlogin");
-  };
+  // const videoAsset = Asset.fromModule(
+  //   require("../../assets/splash/admin.mp4")
+  // );
   return (
     <View className="bg-white h-full">
       <View className="w-full flex flex-col gap-4">
@@ -23,7 +23,7 @@ const Selectrole = () => {
         <View className="flex flex-col gap-3">
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Wardenlogin");
+              navigation.navigate("Adminlogin");
             }}
           >
             <Video
@@ -39,7 +39,7 @@ const Selectrole = () => {
           <View className="mt-12">
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Adminlogin");
+                navigation.navigate("Wardenlogin");
               }}
             >
               <Video
