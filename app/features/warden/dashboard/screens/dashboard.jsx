@@ -18,19 +18,19 @@ const Dashboard = () => {
       icon: "calendar-number-outline",
       title: "Take Attendance",
       navigate: "Showrooms",
-      image: require("../../assets/dashboard/card1.jpg"),
+      image: require("../../../../assets/dashboard/card1.jpg"),
     },
     {
       icon: "create-outline",
       title: "Add/Edit Details",
-      navigate: "card2",
-      image: require("../../assets/dashboard/card2.jpg"),
+      navigate: "Addeditdata",
+      image: require("../../../../assets/dashboard/card2.jpg"),
     },
     {
       icon: "download-outline",
       title: "Export Details",
       navigate: "Exportexcel",
-      image: require("../../assets/dashboard/card3.png"),
+      image: require("../../../../assets/dashboard/card3.png"),
     },
   ];
 

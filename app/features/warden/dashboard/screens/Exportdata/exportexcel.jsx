@@ -4,17 +4,17 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 const Exportexcel = () => {
   const cards = [
     {
-      image: require("../../../assets/dashboard/exportexcel/export1.png"),
+      image: require("../../../../../assets/dashboard/exportexcel/export1.png"),
       title1: "Export Student Details",
       title2: "Download detailed student record as an Excel file",
     },
     {
-      image: require("../../../assets/dashboard/exportexcel/export2.png"),
+      image: require("../../../../../assets/dashboard/exportexcel/export2.png"),
       title1: "Export Student Details",
       title2: "Download detailed student record as an Excel file",
     },
     {
-      image: require("../../../assets/dashboard/exportexcel/export3.png"),
+      image: require("../../../../../assets/dashboard/exportexcel/export3.png"),
       title1: "Export Student Details",
       title2: "Download detailed student record as an Excel file",
     },
@@ -23,7 +23,7 @@ const Exportexcel = () => {
     <View className="flex-1 bg-white flex flex-col">
       <View className="w-full h-16 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
         <Text className="text-2xl font-bold  text-white text-center w-72 italic">
-          Warden Dashboard
+          Export Data
         </Text>
       </View>
       <View className=" px-5 py-10 flex flex-col gap-8">

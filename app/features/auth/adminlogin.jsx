@@ -8,8 +8,10 @@ import {
 } from "react-native";
 import { Video } from "expo-av";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Adminlogin = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView className=" bg-white">
       <View className="flex-1 items-center mt-8 justify-start">
@@ -53,7 +55,12 @@ const Adminlogin = () => {
               />
             </View>
 
-            <TouchableOpacity className="bg-purple-500 w-36 h-12 rounded-lg justify-center items-center">
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Admindashboard");
+              }}
+              className="bg-purple-500 w-36 h-12 rounded-lg justify-center items-center"
+            >
               <Text className="text-white font-black text-xl">LOGIN</Text>
             </TouchableOpacity>
           </View>
