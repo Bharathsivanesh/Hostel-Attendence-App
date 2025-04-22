@@ -10,13 +10,13 @@ const Exportexcel = () => {
     },
     {
       image: require("../../../../../assets/dashboard/exportexcel/export2.png"),
-      title1: "Export Student Details",
-      title2: "Download detailed student record as an Excel file",
+      title1: "Export Attendence Details",
+      title2: "Download Attendence  record as an Excel file",
     },
     {
       image: require("../../../../../assets/dashboard/exportexcel/export3.png"),
-      title1: "Export Student Details",
-      title2: "Download detailed student record as an Excel file",
+      title1: "Export Todays's Attendence Details",
+      title2: "Automatically email the attendence report to the Admin",
     },
   ];
   return (

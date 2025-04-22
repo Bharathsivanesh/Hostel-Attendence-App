@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 const Addedit = () => {
@@ -6,6 +7,7 @@ const Addedit = () => {
       image: require("../../../../../assets/dashboard/addedit/add.png"),
       titl1: "Add Data",
       titl2: "Add new student And room data",
+      route: "Adddetails",
       height: 250,
       width: 250,
     },
@@ -13,10 +15,12 @@ const Addedit = () => {
       image: require("../../../../../assets/dashboard/addedit/edit.png"),
       titl1: "Edit details",
       titl2: "Update existing records easily",
+      route: "Adddetails",
       height: 200,
       width: 200,
     },
   ];
+  const navigation = useNavigation();
 
   return (
     <View className="flex-1 bg-white">
@@ -29,7 +33,12 @@ const Addedit = () => {
 
         <View className="flex flex-col gap-16 justify-center items-center">
           {cards.map((obj, key) => (
-            <TouchableOpacity key={key}>
+            <TouchableOpacity
+              key={key}
+              onPress={() => {
+                navigation.navigate(obj.route);
+              }}
+            >
               <Image
                 source={obj.image}
                 style={{ height: obj.height, width: obj.width }}

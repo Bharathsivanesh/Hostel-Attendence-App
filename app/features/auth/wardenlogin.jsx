@@ -9,6 +9,7 @@ import {
 import { Video } from "expo-av";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import Loginbutton from "../../components/loginbutton";
 
 const Wardenlogin = () => {
   const navigation = useNavigation();
@@ -54,14 +55,14 @@ const Wardenlogin = () => {
               />
             </View>
 
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Dashboard");
-              }}
-              className="bg-purple-500 w-36 h-12 rounded-lg justify-center items-center"
-            >
-              <Text className="text-white font-black text-xl">LOGIN</Text>
-            </TouchableOpacity>
+            <View className="mt-6">
+              <Loginbutton
+                title="LOGIN"
+                onPress={() => {
+                  navigation.navigate("Dashboard");
+                }}
+              />
+            </View>
           </View>
         </View>
       </View>

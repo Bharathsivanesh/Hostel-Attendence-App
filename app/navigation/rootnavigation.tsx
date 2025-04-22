@@ -7,6 +7,7 @@ import Dashboard from "../features/warden/dashboard/screens/dashboard";
 import Exportexcel from "../features/warden/dashboard/screens/Exportdata/exportexcel";
 import Addedit from "../features/warden/dashboard/screens/Addandedit/addedit";
 import Admindashboard from "../features/admin/dashboard/screens/admindashboard";
+import Adddetails from "../features/warden/dashboard/screens/Addandedit/adddetails";
 const Stack = createNativeStackNavigator();
 const Mystack = () => {
   return (
@@ -49,6 +50,11 @@ const Mystack = () => {
       <Stack.Screen
         name="Admindashboard"
         component={Admindashboard}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Adddetails"
+        component={Adddetails}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
