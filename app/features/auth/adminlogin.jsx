@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Alert,
   ScrollView,
   Text,
   TextInput,
@@ -10,11 +11,39 @@ import { Video } from "expo-av";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Loginbutton from "../../components/loginbutton";
+import {AuthLogin} from "../../services/auth/auth";
+import showtoast from "../../components/Toastmessage";
+import Spinner from 'react-native-loading-spinner-overlay';
+import Loader from "../../components/loader"
+
 
 const Adminlogin = () => {
   const navigation = useNavigation();
+
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [loading,setloading]=useState(false);
+  const handlelogin = async () => {
+    setloading(true);
+    const response = await AuthLogin(email, password);
+    console.log(email);
+    console.log(password);
+    if (response.success) {
+      showtoast("success","Login Successfully!","Welcome chief😎","Top");
+      //reusbale component
+      navigation.navigate("Admindashboard");
+    } else {
+      showtoast("error","Login Failed","Invalid email or password🤧","Top");
+
+    }
+   setloading(false);
+    setemail("");
+    setpassword("");
+  };
+
   return (
     <ScrollView className=" bg-white">
+      <Loader visible={loading} text="Logging in..."/>
       <View className="flex-1 items-center mt-8 justify-start">
         <Video
           source={require("../../assets/auth/adminlogin.mp4")}
@@ -39,7 +68,12 @@ const Adminlogin = () => {
                 color="#7e22ce"
                 className="mr-2"
               />
-              <TextInput placeholder="Email" className="flex-1 pl-2" />
+              <TextInput
+                placeholder="Email"
+                className="flex-1 pl-2"
+                onChangeText={setemail}
+                value={email}
+              />
             </View>
 
             <View className="flex-row items-center border-b-2 border-purple-500 w-72">
@@ -53,15 +87,12 @@ const Adminlogin = () => {
                 placeholder="Password"
                 secureTextEntry
                 className="flex-1 pl-2"
+                value={password}
+                onChangeText={setpassword}
               />
             </View>
             <View className="mt-6">
-              <Loginbutton
-                title="LOGIN"
-                onPress={() => {
-                  navigation.navigate("Admindashboard");
-                }}
-              />
+              <Loginbutton title="LOGIN" onPress={handlelogin} />
             </View>
           </View>
         </View>

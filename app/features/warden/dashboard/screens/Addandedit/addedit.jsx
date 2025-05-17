@@ -15,7 +15,7 @@ const Addedit = () => {
       image: require("../../../../../assets/dashboard/addedit/edit.png"),
       titl1: "Edit details",
       titl2: "Update existing records easily",
-      route: "Adddetails",
+      route: "Editdetails",
       height: 200,
       width: 200,
     },
@@ -36,7 +36,9 @@ const Addedit = () => {
             <TouchableOpacity
               key={key}
               onPress={() => {
-                navigation.navigate(obj.route);
+                navigation.navigate(obj.route, {
+                  title: obj.titl1,
+                });
               }}
             >
               <Image

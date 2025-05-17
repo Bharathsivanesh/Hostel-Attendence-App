@@ -39,7 +39,8 @@ const Selectrole = () => {
           <View className="mt-12">
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Wardenlogin");
+                navigation.navigate("Wardenlogin")
+
               }}
             >
               <Video

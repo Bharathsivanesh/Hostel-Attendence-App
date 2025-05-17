@@ -8,6 +8,15 @@ import Exportexcel from "../features/warden/dashboard/screens/Exportdata/exporte
 import Addedit from "../features/warden/dashboard/screens/Addandedit/addedit";
 import Admindashboard from "../features/admin/dashboard/screens/admindashboard";
 import Adddetails from "../features/warden/dashboard/screens/Addandedit/adddetails";
+import Editdetails from "../features/warden/dashboard/screens/Addandedit/editdetails";
+import Addwarden from "../features/admin/dashboard/screens/addwarden/addwarden";
+import Editwarden from "../features/admin/dashboard/screens/editwarden/editwarden";
+import Viewwarden from "../features/admin/dashboard/screens/viewwarden/viewwarden";
+
+import Showrooms from "../features/warden/dashboard/screens/Takeattendence/showrooms";
+import TakeAttendence from "../features/warden/dashboard/screens/Takeattendence/takeattendence";
+import {WardenProvider} from "../context/wardencontext"
+
 const Stack = createNativeStackNavigator();
 const Mystack = () => {
   return (
@@ -24,8 +33,8 @@ const Mystack = () => {
       />
       <Stack.Screen
         name="Wardenlogin"
-        component={Wardenlogin}
         options={{ headerShown: false }}
+         component={Wardenlogin}
       />
       <Stack.Screen
         name="Adminlogin"
@@ -57,6 +66,38 @@ const Mystack = () => {
         component={Adddetails}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="Editdetails"
+        component={Editdetails}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Addwarden"
+        component={Addwarden}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Editwarden"
+        component={Editwarden}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Viewwarden"
+        component={Viewwarden}
+        options={{ headerShown: false }}
+      />
+      
+
+      <Stack.Screen
+        name="Showrooms"
+         component={Showrooms}
+        options={{ headerShown: false }}/>
+
+      <Stack.Screen
+        name="TakeAttendence"
+         component={TakeAttendence}
+        options={{ headerShown: false }}/>
+
     </Stack.Navigator>
   );
 };

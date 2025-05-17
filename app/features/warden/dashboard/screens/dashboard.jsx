@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -9,6 +9,7 @@ import {
 
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import firebaseApp from "../../../../firebase/index";
 
 const Dashboard = () => {
   const navigation = useNavigation();
@@ -17,7 +18,7 @@ const Dashboard = () => {
     {
       icon: "calendar-number-outline",
       title: "Take Attendance",
-      navigate: "Showrooms",
+       navigate:"Showrooms",
       image: require("../../../../assets/dashboard/card1.jpg"),
     },
     {
@@ -49,7 +50,7 @@ const Dashboard = () => {
           {cards.map((card, index) => (
             <TouchableOpacity
               key={index}
-              onPress={() => navigation.navigate(card.navigate)}
+               onPress={() => {navigation.navigate(card.navigate)}}
             >
               <View className="h-40 w-72 mt-10 rounded-2xl overflow-hidden shadow-lg">
                 <ImageBackground source={card.image} className="w-full h-full">
