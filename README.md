@@ -60,9 +60,9 @@ This app provides **role-based functionality**, allowing:
 
 ---
 ### 💻 Screenshots
-![Image](https://github.com/user-attachments/assets/f48a78aa-bb05-4060-b956-63029f879584)
-![Image](https://github.com/user-attachments/assets/4900df7a-32cb-4c76-81d9-a47331b2f2d4)
-![Image](https://github.com/user-attachments/assets/63f0d933-1d1e-477b-ac88-4bfa8addc9ac)
+![Image](https://github.com/user-attachments/assets/44d31e68-46c5-4985-b476-ecd549062841)
+![Image](https://github.com/user-attachments/assets/a8480b48-b0bd-4117-a9d6-d39181f60816)
+![Image](https://github.com/user-attachments/assets/ac6bbbec-14bd-43ca-b98f-18a0f0222720)
 
 ## 🛠️ Technical Overview
 
