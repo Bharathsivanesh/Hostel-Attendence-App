@@ -42,7 +42,6 @@ const Wardenlogin = () => {
 
       navigation.navigate("Dashboard");
 
-      // ✅ warden dashboard
       console.log(result.message);
     } else {
       showtoast("error", "Invalid!", result.message, "top");
