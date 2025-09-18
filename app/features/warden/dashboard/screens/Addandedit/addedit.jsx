@@ -25,7 +25,7 @@ const Addedit = () => {
   return (
     <View className="flex-1 bg-white">
       <View className="flex flex-col">
-        <View className="w-full h-16 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
+        <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
           <Text className="text-2xl font-bold text-white text-center w-72 italic">
             Add/Edit
           </Text>

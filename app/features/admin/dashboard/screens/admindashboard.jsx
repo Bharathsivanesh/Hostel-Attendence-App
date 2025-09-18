@@ -5,16 +5,16 @@ import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
-import {deletewarden } from "../../../../services/admin/wardencredentials";
+import { deletewarden } from "../../../../services/admin/wardencredentials";
 import showtoast from "../../../../components/Toastmessage";
-import checknetwork from "../../../../components/checknetwork"
-import Loader from "../../../../components/loader"
+import checknetwork from "../../../../components/checknetwork";
+import Loader from "../../../../components/loader";
 const Admindashboard = () => {
   const navigation = useNavigation();
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [wardenId, setWardenId] = useState("");
-  const[loading,setloading]=useState(false);
+  const [loading, setloading] = useState(false);
   const cards = [
     {
       icon: "person-add",
@@ -42,34 +42,41 @@ const Admindashboard = () => {
     },
   ];
 
-  const handleDelete = async() => {
+  const handleDelete = async () => {
     // Your delete logic using wardenId
-    if(!wardenId)
-
-      {
-         showtoast("error","Invalid","Enter I'D🤧","Top");
-        return;
-      }
-    console.log("Deleting Warden with ID:", wardenId);
-  
-          setloading(true);
-       const response=await deletewarden (wardenId);
-
-         if(response.success)
-         {
-            showtoast("success", "Sucessfully!", "Sucessfully Deleted 🥳", "Top");
-         }
-         else{
-             showtoast("error",response.message,"Finds an Error🤧","Top");
-         } 
+    const isConnected = await checknetwork();
+    if (!isConnected) {
+      showtoast(
+        "error",
+        "No Internet Connection",
+        "Check your network!",
+        "Top"
+      );
       setloading(false);
+      return;
+    }
+    if (!wardenId) {
+      showtoast("error", "Invalid", "Enter I'D🤧", "top");
+      return;
+    }
+    console.log("Deleting Warden with ID:", wardenId);
+
+    setloading(true);
+    const response = await deletewarden(wardenId);
+
+    if (response.success) {
+      showtoast("success", "Sucessfully!", "Sucessfully Deleted 🥳", "top");
+    } else {
+      showtoast("error", response.message, "Finds an Error🤧", "top");
+    }
+    setloading(false);
     setModalVisible(false);
     setWardenId("");
   };
 
   return (
     <View className="bg-white flex-1 pt-12">
-       <Loader visible={loading} text="Deleting Warden details..."/>
+      <Loader visible={loading} text="Deleting Warden details..." />
       <View className="flex items-center justify-center">
         <Text className="text-3xl text-purple-500 font-extrabold">
           👨‍💼 Admin Dashboard
@@ -109,7 +116,7 @@ const Admindashboard = () => {
         ))}
       </View>
 
-    {/* this is model */}
+      {/* this is model */}
       <DeleteWardenModal
         visible={isModalVisible}
         onClose={() => setModalVisible(false)}

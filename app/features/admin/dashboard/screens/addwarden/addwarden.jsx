@@ -1,12 +1,18 @@
-import { Text, TouchableOpacity, View, TextInput, ScrollView } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import showtoast from "../../../../../components/Toastmessage";
-import checknetwork from "../../../../../components/checknetwork"
-import Loader from "../../../../../components/loader"
+import checknetwork from "../../../../../components/checknetwork";
+import Loader from "../../../../../components/loader";
 import { useState } from "react";
-import {handleAddWarden} from "../../../../../services/admin/wardencredentials" 
+import { handleAddWarden } from "../../../../../services/admin/wardencredentials";
 
 const Addwarden = () => {
   const validationschema = Yup.object().shape({
@@ -17,63 +23,69 @@ const Addwarden = () => {
     gender: Yup.string().required("Gender is required"),
     hostel_type: Yup.string().required("Hostel Type is required"),
     block_id: Yup.string().required("Block ID is required"),
-  
-     Year: Yup.string().required("Year is required"),
+
+    Year: Yup.string().required("Year is required"),
     warden_id: Yup.string().required("Warden ID is required"),
     password: Yup.string().required("Password is required"),
   });
- 
-  const[loading,setloading]=useState(false);
-   
- const handlesubmit=async(values,{resetForm})=>{
 
-       setloading(true);
-       const response=await handleAddWarden(values);
+  const [loading, setloading] = useState(false);
 
-         if(response.success)
-         {
-            showtoast("success", "Sucessfully!", "Sucessfully Added 🥳", "Top");
-         }
-         else{
-             showtoast("error",response.message,"Finds an Error🤧","Top");
-         } 
-         setloading(false);
-         resetForm();
-         
- }
-const formatDate = (date) => {
-  if (!date) return '';
-  const d = new Date(date);
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0'); // Months start from 0
-  const year = d.getFullYear();
-  return `${day}/${month}/${year}`;
-};
+  const handlesubmit = async (values, { resetForm }) => {
+    const isConnected = await checknetwork();
+    if (!isConnected) {
+      showtoast(
+        "error",
+        "No Internet Connection",
+        "Check your network!",
+        "Top"
+      );
+      setloading(false);
+      return;
+    }
+    setloading(true);
+    const response = await handleAddWarden(values);
+
+    if (response.success) {
+      showtoast("success", "Sucessfully!", "Sucessfully Added 🥳", "top");
+    } else {
+      showtoast("error", response.message, "Finds an Error🤧", "top");
+    }
+    setloading(false);
+    resetForm();
+  };
+  const formatDate = (date) => {
+    if (!date) return "";
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0"); // Months start from 0
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
   return (
-     <ScrollView>
-       <Loader visible={loading} text="Adding Warden details..."/>
-    <View className="bg-white flex-1">
-       
-      <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
-        <Text className="text-2xl font-bold text-white italic">Add Warden</Text>
-      </View>
+    <ScrollView>
+      <Loader visible={loading} text="Adding Warden details..." />
+      <View className="bg-white flex-1">
+        <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
+          <Text className="text-2xl font-bold text-white italic">
+            Add Warden
+          </Text>
+        </View>
 
-      
         <Formik
           initialValues={{
             name: "",
-            joined_date:formatDate(new Date()),
+            joined_date: formatDate(new Date()),
             gender: "",
             hostel_type: "",
             block_id: "",
-          
-             Year:"",
+
+            Year: "",
             warden_id: "",
             password: "",
           }}
           validationSchema={validationschema}
-           onSubmit={handlesubmit}
-         
+          onSubmit={handlesubmit}
         >
           {({
             handleChange,
@@ -101,16 +113,16 @@ const formatDate = (date) => {
 
               {/* Joined Date */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Joined Date</Text>
+                <Text className="text-purple-600 font-bold italic">
+                  Joined Date
+                </Text>
                 <TextInput
                   className="border border-purple-400 rounded-xl p-3"
                   editable={false}
                   onChangeText={handleChange("joined_date")}
                   onBlur={handleBlur("joined_date")}
-                    value={values.joined_date}
+                  value={values.joined_date}
                 />
-                
-            
               </View>
 
               {/* Gender */}
@@ -133,7 +145,9 @@ const formatDate = (date) => {
 
               {/* Hostel Type */}
               <View>
-                <Text className="text-purple-600 font-bold   italic">Hostel Type</Text>
+                <Text className="text-purple-600 font-bold   italic">
+                  Hostel Type
+                </Text>
                 <View className="border border-purple-400 rounded-xl">
                   <Picker
                     selectedValue={values.hostel_type}
@@ -151,23 +165,33 @@ const formatDate = (date) => {
 
               {/* Block ID */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Block ID</Text>
-                <TextInput
-                  className="border border-purple-400 rounded-xl p-3"
-                  placeholder="Enter Block ID"
-                  onChangeText={handleChange("block_id")}
-                  onBlur={handleBlur("block_id")}
-                  value={values.block_id}
-                />
+                <Text className="text-purple-600 font-bold italic">
+                  Block ID
+                </Text>
+                <View className="border border-purple-400 rounded-xl">
+                  <Picker
+                    selectedValue={values.block_id}
+                    onValueChange={(itemValue) => {
+                      handleChange("block_id")(itemValue);
+                    }}
+                    onBlur={handleBlur("block_id")}
+                  >
+                    <Picker.Item label="Select Block ID" value="" />
+                    <Picker.Item label="BB-1" value="BB-1" />
+                    <Picker.Item label="BB-2" value="BB-2" />
+                    <Picker.Item label="BB-3" value="BB-3" />
+                    <Picker.Item label="GB-1" value="GB-1" />
+                    {/* Add more as needed */}
+                  </Picker>
+                </View>
                 {touched.block_id && errors.block_id && (
                   <Text className="text-red-500">{errors.block_id}</Text>
                 )}
               </View>
 
               {/* Floor */}
-        
 
-               <View>
+              <View>
                 <Text className="text-purple-600 font-bold   italic">Year</Text>
                 <View className="border border-purple-400 rounded-xl">
                   <Picker
@@ -189,7 +213,9 @@ const formatDate = (date) => {
 
               {/* Warden ID */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Warden ID</Text>
+                <Text className="text-purple-600 font-bold italic">
+                  Warden ID
+                </Text>
                 <TextInput
                   className="border border-purple-400 rounded-xl p-3"
                   placeholder="Enter Warden ID"
@@ -204,7 +230,9 @@ const formatDate = (date) => {
 
               {/* Password */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Password</Text>
+                <Text className="text-purple-600 font-bold italic">
+                  Password
+                </Text>
                 <TextInput
                   className="border border-purple-400 rounded-xl p-3"
                   placeholder="Enter Password"
@@ -224,15 +252,16 @@ const formatDate = (date) => {
                   onPress={handleSubmit}
                   className="w-1/2 h-10 mt-6 rounded-md bg-purple-500 flex items-center justify-center"
                 >
-                  <Text className="text-white text-lg font-semibold">Submit</Text>
+                  <Text className="text-white text-lg font-semibold">
+                    Submit
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
           )}
         </Formik>
-   
-    </View>
-      </ScrollView>
+      </View>
+    </ScrollView>
   );
 };
 

@@ -36,8 +36,6 @@ const TakeAttendence = () => {
     settime(formattedTime);
 
     const fetchstudents = async () => {
-      setloading(true);
-      setloadingtext("Fetching students...");
       const isConnected = await checknetwork();
       if (!isConnected) {
         showtoast(
@@ -49,6 +47,8 @@ const TakeAttendence = () => {
         setloading(false);
         return;
       }
+      setloading(true);
+      setloadingtext("Fetching students...");
 
       let response;
       if (wardeninfo.hostel_type === "Girls") {
@@ -62,7 +62,7 @@ const TakeAttendence = () => {
         setattendanceStatus(response.message.map(() => "PRESENT")); //two student means depfault ;["present","present"] like this
         console.log("Students:", response.message);
       } else {
-        showtoast("error", response.message, "Error fetching students", "Top");
+        showtoast("error", response.message, "Error fetching students", "top");
       }
 
       setloading(false);
@@ -122,7 +122,7 @@ const TakeAttendence = () => {
     Linking.canOpenURL(url)
       .then((supported) => {
         if (!supported) {
-          showtoast("error", "WhatsApp not installed", "", "Top");
+          showtoast("error", "WhatsApp not installed", "", "top");
         } else {
           return Linking.openURL(url);
         }
@@ -168,7 +168,7 @@ const TakeAttendence = () => {
           {/* Student Cards */}
           <View className="flex flex-col p-3">
             {students.map((data, idx) => (
-              <View className="bg-purple-400 rounded-lg h-40 mb-5" key={idx}>
+              <View className="bg-purple-300 rounded-lg h-40 mb-5" key={idx}>
                 <View className="flex flex-col gap-6 w-full p-3">
                   <View className="flex flex-row justify-between w-full p-2">
                     <Text className="text-white font-black text-lg">
@@ -207,10 +207,10 @@ const TakeAttendence = () => {
                               : "bg-[#D2CA3E]"
                             : `border ${
                                 status === "PRESENT"
-                                  ? "border-[#4ACC92]"
+                                  ? "border-[#4ACC92] border-2 "
                                   : status === "ABSENT"
-                                  ? "border-[#FF080C]"
-                                  : "border-[#D2CA3E]"
+                                  ? "border-[#FF080C] border-2"
+                                  : "border-[#D2CA3E] border-2"
                               }`
                         }`}
                         onPress={() => handleStatusChange(idx, status)}
@@ -219,7 +219,7 @@ const TakeAttendence = () => {
                           className={`${
                             attendanceStatus[idx] === status
                               ? "text-white"
-                              : "text-black"
+                              : "text-white"
                           }`}
                         >
                           {status}
@@ -235,7 +235,7 @@ const TakeAttendence = () => {
           {/* Submit Button */}
           <View className="flex justify-center items-center mb-6">
             <TouchableOpacity
-              className="bg-purple-500 w-40 h-10 rounded-lg flex justify-center items-center"
+              className="bg-purple-400 w-40 h-10 rounded-lg flex justify-center items-center"
               onPress={handlesubmit}
             >
               <Text className="text-white font-black text-center">SUBMIT</Text>

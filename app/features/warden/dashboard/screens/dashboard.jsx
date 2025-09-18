@@ -18,7 +18,7 @@ const Dashboard = () => {
     {
       icon: "calendar-number-outline",
       title: "Take Attendance",
-       navigate:"Showrooms",
+      navigate: "Showrooms",
       image: require("../../../../assets/dashboard/card1.jpg"),
     },
     {
@@ -38,7 +38,7 @@ const Dashboard = () => {
   return (
     <View className="flex-1 bg-white">
       {/* Header */}
-      <View className="w-full h-16 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
+      <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
         <Text className="text-2xl font-bold  text-white text-center w-72 italic">
           Warden Dashboard
         </Text>
@@ -50,7 +50,9 @@ const Dashboard = () => {
           {cards.map((card, index) => (
             <TouchableOpacity
               key={index}
-               onPress={() => {navigation.navigate(card.navigate)}}
+              onPress={() => {
+                navigation.navigate(card.navigate);
+              }}
             >
               <View className="h-40 w-72 mt-10 rounded-2xl overflow-hidden shadow-lg">
                 <ImageBackground source={card.image} className="w-full h-full">

@@ -6,17 +6,17 @@ import { ScrollView } from "react-native";
 import { TextInput } from "react-native";
 import { Button } from "react-native";
 import { jsx } from "react/jsx-runtime";
-import {addstudent} from "../../../services/students/students"
+import { addstudent } from "../../../services/students/students";
 import showtoast from "../../../components/Toastmessage";
-import checknetwork from "../../../components/checknetwork"
-const Studentfrom = ({setloading}) => {
+import checknetwork from "../../../components/checknetwork";
+const Studentfrom = ({ setloading }) => {
   const validationschema = Yup.object().shape({
     roomid: Yup.string()
       .matches(/^\d+$/, "Room Id should be number")
       .required("Room Id is required"),
-      //   blockid: Yup.string()
-      // .matches(/^\d+$/, "Room Id should be number")
-      // .required("Room Id is required"),
+    //   blockid: Yup.string()
+    // .matches(/^\d+$/, "Room Id should be number")
+    // .required("Room Id is required"),
     name: Yup.string()
       .matches(/^[a-zA-Z\s]*$/, "Name should be string")
       .required("Name is required"),
@@ -34,36 +34,39 @@ const Studentfrom = ({setloading}) => {
       .required("Parent number required"),
   });
 
-  const handlesubmit = async(value,{resetForm}) => { //formik will default pass the resetform() method after onsubmit
-   
+  const handlesubmit = async (value, { resetForm }) => {
+    //formik will default pass the resetform() method after onsubmit
+
     setloading(true);
-    const isconnected =await checknetwork(); //chekcing this for offline or not
-      
-  if (!isconnected) {
-    showtoast("error", "Offline", "Please check your internet connection 🌐", "Top");
+    const isconnected = await checknetwork(); //chekcing this for offline or not
+
+    if (!isconnected) {
+      showtoast(
+        "error",
+        "Offline",
+        "Please check your internet connection 🌐",
+        "top"
+      );
+      setloading(false);
+      return;
+    }
+
+    const response = await addstudent(value); //calling service
+    if (response.success) {
+      showtoast("success", response.message, "Sucessfully added...😎", "top");
+    } else {
+      showtoast("error", response.message, "Finds an Error🤧", "top");
+    }
+
     setloading(false);
-    return;
-  }
- 
-   const response=await addstudent(value);//calling service
-   if(response.success)
-   {
-     showtoast("success",response.message,"Sucessfully added...😎","Top");
-   }
-    else{
-     showtoast("error",response.message,"Finds an Error🤧","Top");
-   }
-  
-  setloading(false);
-   resetForm();//buildin form formik
- 
+    resetForm(); //buildin form formik
   };
   return (
     <>
       <Formik
         initialValues={{
           roomid: "",
-          blockid:"",
+          blockid: "",
           name: "",
           reg: "",
           year: "",
@@ -73,9 +76,8 @@ const Studentfrom = ({setloading}) => {
           parent_phone: "",
         }}
         validationSchema={validationschema}
-       
-         onSubmit={handlesubmit} // ✅ Logs form data
-       //this will be tregear by handleSubmit automaticlay after clicking submit btn
+        onSubmit={handlesubmit} // ✅ Logs form data
+        //this will be tregear by handleSubmit automaticlay after clicking submit btn
       >
         {({
           handleChange,
@@ -99,19 +101,31 @@ const Studentfrom = ({setloading}) => {
                 <Text className="text-red-500">{errors.roomid}</Text>
               )}
             </View>
-              <View>
+
+            <View>
               <Text className="text-purple-600 font-bold italic">Block-ID</Text>
-              <TextInput
-                className="border border-purple-400 rounded-xl p-3"
-                placeholder="Enter Room ID"
-                onChangeText={handleChange("blockid")} 
-                onBlur={handleBlur("blockid")}
-                value={values.blockid}
-              />
+
+              <View className="border border-purple-400 rounded-xl">
+                <Picker
+                  selectedValue={values.blockid}
+                  onValueChange={(itemValue) =>
+                    handleChange("blockid")(itemValue)
+                  }
+                  onBlur={handleBlur("blockid")}
+                >
+                  <Picker.Item label="Select Block ID" value="" />
+                  <Picker.Item label="BB-1" value="BB-1" />
+                  <Picker.Item label="BB-2" value="BB-2" />
+                  <Picker.Item label="BB-3" value="BB-3" />
+                  <Picker.Item label="GB-1" value="GB-1" />
+                </Picker>
+              </View>
+
               {touched.blockid && errors.blockid && (
                 <Text className="text-red-500">{errors.blockid}</Text>
               )}
             </View>
+
             <View>
               <Text className="text-purple-600 font-bold italic">Name</Text>
               <TextInput
@@ -164,8 +178,6 @@ const Studentfrom = ({setloading}) => {
               )}
             </View>
 
-       
-
             <View>
               <Text className="text-purple-600 font-bold italic mb-1">
                 Department
@@ -187,7 +199,7 @@ const Studentfrom = ({setloading}) => {
                 <Text className="text-red-500">{errors.year}</Text>
               )}
             </View>
-                <View>
+            <View>
               <Text className="text-purple-600 font-bold italic mb-1">
                 Section
               </Text>

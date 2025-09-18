@@ -11,39 +11,49 @@ import { Video } from "expo-av";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Loginbutton from "../../components/loginbutton";
-import {AuthLogin} from "../../services/auth/auth";
+import { AuthLogin } from "../../services/auth/auth";
 import showtoast from "../../components/Toastmessage";
-import Spinner from 'react-native-loading-spinner-overlay';
-import Loader from "../../components/loader"
-
+import checknetwork from "../../components/checknetwork";
+import Spinner from "react-native-loading-spinner-overlay";
+import Loader from "../../components/loader";
 
 const Adminlogin = () => {
   const navigation = useNavigation();
 
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const [loading,setloading]=useState(false);
+  const [loading, setloading] = useState(false);
   const handlelogin = async () => {
     setloading(true);
+    const isConnected = await checknetwork();
+    if (!isConnected) {
+      showtoast(
+        "error",
+        "No Internet Connection",
+        "Check your network!",
+        "Top"
+      );
+      setloading(false);
+      return;
+    }
     const response = await AuthLogin(email, password);
     console.log(email);
     console.log(password);
     if (response.success) {
-      showtoast("success","Login Successfully!","Welcome chief😎","Top");
+      showtoast("success", "Login Successfully!", "Welcome chief😎", "top");
       //reusbale component
       navigation.navigate("Admindashboard");
     } else {
-      showtoast("error","Login Failed","Invalid email or password🤧","Top");
-
+      showtoast("error", "Login Failed", "Invalid email or password🤧", "top");
     }
-   setloading(false);
+    setloading(false);
     setemail("");
     setpassword("");
   };
 
   return (
     <ScrollView className=" bg-white">
-      <Loader visible={loading} text="Logging in..."/>
+      <Loader visible={loading} text="Logging in..." />
       <View className="flex-1 items-center mt-8 justify-start">
         <Video
           source={require("../../assets/auth/adminlogin.mp4")}

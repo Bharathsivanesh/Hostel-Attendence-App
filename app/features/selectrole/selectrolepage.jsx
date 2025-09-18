@@ -12,10 +12,10 @@ const Selectrole = () => {
   return (
     <View className="bg-white h-full">
       <View className="w-full flex flex-col gap-4">
-        <View className="bg-purple-400 flex items-center justify-center w-full h-20 rounded-bl-full rounded-br-full">
+        <View className="bg-purple-400 flex items-center justify-center w-full h-16 rounded-bl-full rounded-br-full">
           <Image
             source={require("../../assets/splash/splash1.png")}
-            className="h-16 w-16"
+            className="h-12 w-12"
             style={{ tintColor: "white" }}
           />
         </View>
@@ -39,8 +39,7 @@ const Selectrole = () => {
           <View className="mt-12">
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Wardenlogin")
-
+                navigation.navigate("Wardenlogin");
               }}
             >
               <Video

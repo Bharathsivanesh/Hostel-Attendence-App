@@ -4,18 +4,20 @@
     "slug": "App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/dashboard/card1.jpg",
+    "icon": "./app/assets/dashboard/splashscreen_logo.png",
     "scheme": "myapp",
+
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "assetBundlePatterns": ["**/*"],
     "splash": {
-      "image": "./app/assets/dashboard/splashscreen_logo.jpg",
+      "image": "./app/assets/dashboard/splashscreen_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bharath2005.Appcom.bharath.hostel"
     },
     "android": {
       "adaptiveIcon": {
@@ -33,7 +35,9 @@
         "expo-splash-screen",
         {
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#ffffff",
+          "image": "./app/assets/dashboard/splashscreen_logo.png",
+          "imageWidth": 200
         }
       ],
       [

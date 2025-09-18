@@ -1,18 +1,29 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase/index";
-import { doc, setDoc, collection, query, where, getDocs, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { deleteUser } from "firebase/auth";
 
 export const handleAddWarden = async (warden) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
-      `${warden.warden_id}@gmail.com`,  // Firebase needs email format
+      `${warden.warden_id}@gmail.com`, // Firebase needs email format
       warden.password
     );
 
     const uid = userCredential.user.uid; //after authencticate for each authticate create a uid using this only we fetch any warden data after authticate
 
     await setDoc(doc(db, "wardens", uid), {
+      //this setDoc set a auto id as "UID"
       uid: uid,
       name: warden.name,
       joined_date: warden.joined_date,
@@ -20,75 +31,73 @@ export const handleAddWarden = async (warden) => {
       hostel_type: warden.hostel_type,
       block_id: warden.block_id,
       warden_id: warden.warden_id,
-      role:"warden",
-      Year:warden.Year,
-      // Don't store password here!  
+      role: "warden",
+      Year: warden.Year,
+      // Don't store password here!
     });
 
-    return{
-        success:true,
-        message:"Sucessfully Added",
-    }
+    return {
+      success: true,
+      message: "Sucessfully Added",
+    };
   } catch (error) {
-       return{
-        success:false,
-       message:error.message
-       }
+    return {
+      success: false,
+      message: error.message,
+    };
   }
 };
 
-
-export const deletewarden = async (id) => {
+export const deletewarden = async (warden_id) => {
   try {
     const wardenRef = collection(db, "wardens");
-    const q = query(wardenRef, where("warden_id", "==", id));
+    const q = query(wardenRef, where("warden_id", "==", warden_id));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
       return { success: false, message: "No Warden found with this ID" };
     }
 
-    // Only one document expected
     const wardenDoc = querySnapshot.docs[0];
-    await deleteDoc(doc(db, "wardens", wardenDoc.id));
+    const wardenData = wardenDoc.data();
+    const uid = wardenData.uid;
 
-    return { success: true };
+    await deleteDoc(doc(db, "wardens", wardenDoc.id)); //auton id that only iam stting uid both are same
+
+    return {
+      success: true,
+      message: "Warden deleted successfully from Auth and Firestore",
+    };
   } catch (error) {
     console.error("Error deleting warden:", error);
     return { success: false, message: error.message };
   }
 };
 
+export const fetchwarden = async () => {
+  try {
+    const wardenref = collection(db, "wardens");
+    const doc = await getDocs(wardenref);
 
-export const 
-fetchwarden=async()=>{
-  try{
-      const wardenref=collection(db,"wardens");
-      const doc=await getDocs(wardenref);
-
-      if(doc.empty)
-      {
-        return{
-          success:false,
-          message:"NoData Entered"
-        }
-      }
-
-    const warden=doc.docs.map((doc)=>doc.data());
+    if (doc.empty) {
       return {
+        success: false,
+        message: "NoData Entered",
+      };
+    }
+
+    const warden = doc.docs.map((doc) => doc.data());
+    return {
       success: true,
       message: warden,
     };
-  }
-  catch(error)
-  {
-   return {
+  } catch (error) {
+    return {
       success: false,
       message: error.message || "Something went wrong",
     };
   }
-}
-
+};
 
 export const fetchupdatewarden = async (id) => {
   try {
@@ -104,7 +113,7 @@ export const fetchupdatewarden = async (id) => {
     const studentDoc = querySnapshot.docs[0];
     return {
       success: true,
-      data:studentDoc.data(),     
+      data: studentDoc.data(),
     };
   } catch (error) {
     console.error("Error fetching warden:", error);
@@ -115,7 +124,7 @@ export const fetchupdatewarden = async (id) => {
   }
 };
 
-export const  updatewarden = async (id,formdata) => {
+export const updatewarden = async (id, formdata) => {
   try {
     const wardenRef = collection(db, "wardens");
     const q = query(wardenRef, where("warden_id", "==", id));
@@ -126,10 +135,10 @@ export const  updatewarden = async (id,formdata) => {
     }
 
     const wardenDoc = querySnapshot.docs[0];
-     await updateDoc(wardenDoc.ref, formdata);
+    await updateDoc(wardenDoc.ref, formdata);
     return {
       success: true,
-      message:"Successfully updated!"     
+      message: "Successfully updated!",
     };
   } catch (error) {
     console.error("Error fetching warden:", error);

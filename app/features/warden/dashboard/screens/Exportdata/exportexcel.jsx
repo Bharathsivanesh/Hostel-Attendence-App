@@ -28,10 +28,10 @@ const Exportexcel = () => {
             "success",
             "Sucessfully",
             "Sucessfully Data Exported",
-            "Top"
+            "top"
           );
         } catch (e) {
-          showtoast("error", students.message, "Finds an Error 🤧", "Top");
+          showtoast("error", students.message, "Finds an Error 🤧", "top");
         }
         setloading(false);
       },
@@ -49,10 +49,10 @@ const Exportexcel = () => {
             "success",
             "Sucessfully",
             "Sucessfully Data Exported",
-            "Top"
+            "top"
           );
         } catch (e) {
-          showtoast("error", attendence.message, "Finds an Error 🤧", "Top");
+          showtoast("error", attendence.message, "Finds an Error 🤧", "top");
         }
         setloading(false);
       },
@@ -82,10 +82,10 @@ const Exportexcel = () => {
             "success",
             "Sucessfully",
             "Sucessfully Data Exported",
-            "Top"
+            "top"
           );
         } catch (e) {
-          showtoast("error", tdylist.message, "Finds an Error 🤧", "Top");
+          showtoast("error", tdylist.message, "Finds an Error 🤧", "top");
         }
         setloading(false);
       },
@@ -94,7 +94,7 @@ const Exportexcel = () => {
   return (
     <View className="flex-1 bg-white flex flex-col">
       <Loader visible={loading} text="Exporting..." />
-      <View className="w-full h-16 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
+      <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
         <Text className="text-2xl font-bold  text-white text-center w-72 italic">
           Export Data
         </Text>
