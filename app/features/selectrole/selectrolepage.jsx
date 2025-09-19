@@ -1,60 +1,66 @@
-import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Video } from "expo-av";
-
+import React, { useRef, useEffect, useState } from "react";
+import { View, Text, Image, ScrollView, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Asset } from "expo-asset";
+
+const { width } = Dimensions.get("window");
+
 const Selectrole = () => {
   const navigation = useNavigation();
-  // const videoAsset = Asset.fromModule(
-  //   require("../../assets/splash/admin.mp4")
-  // );
+  const scrollRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const images = [
+    require("../../assets/splash/slider1.jpg"),
+    require("../../assets/splash/slider2.jpg"),
+    require("../../assets/splash/slider3.jpg"),
+  ];
+
+  // Auto scroll effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % images.length;
+      scrollRef.current?.scrollTo({ x: nextIndex * width, animated: true });
+      setCurrentIndex(nextIndex);
+    }, 2000); // change every 3s
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
   return (
     <View className="bg-white h-full">
-      <View className="w-full flex flex-col gap-4">
-        <View className="bg-purple-400 flex items-center justify-center w-full h-16 rounded-bl-full rounded-br-full">
-          <Image
-            source={require("../../assets/splash/splash1.png")}
-            className="h-12 w-12"
-            style={{ tintColor: "white" }}
-          />
+      {/* Header Bar */}
+      <View className="w-full flex flex-col">
+        <View className="bg-[#fbc02d] flex items-center justify-center w-full h-16 ">
+          <Text className="italic font-bold text-2xl font-serif text-white">
+            Attendance System
+          </Text>
         </View>
 
-        <View className="flex flex-col gap-3">
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Adminlogin");
-            }}
-          >
-            <Video
-              source={require("../../assets/splash/admin.mp4")}
-              resizeMode="contain"
-              style={{ width: 320, height: 250 }}
-              shouldPlay
-              isLooping
+        {/* Add some space */}
+        <View className="h-4" />
+
+        {/* Image Slider */}
+        <ScrollView
+          ref={scrollRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          className="w-full h-40"
+        >
+          {images.map((img, index) => (
+            <Image
+              key={index}
+              source={img}
+              className="w-screen h-40"
+              resizeMode="cover"
             />
-            <Text className="text-center font-black">ADMIN</Text>
-          </TouchableOpacity>
-
-          <View className="mt-12">
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Wardenlogin");
-              }}
-            >
-              <Video
-                source={require("../../assets/splash/warden.mp4")}
-                resizeMode="contain"
-                style={{ width: 320, height: 250 }}
-                shouldPlay
-                isLooping
-              />
-              <Text className="text-center font-black">WARDEN</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+          ))}
+        </ScrollView>
+      </View>
+      <View className="flex-1 items-center  mt-12">
+        <Text>Select Your Role</Text>
       </View>
     </View>
   );
 };
+
 export default Selectrole;
