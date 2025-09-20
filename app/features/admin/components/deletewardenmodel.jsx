@@ -10,30 +10,49 @@ const DeleteWardenModal = ({ visible, onClose, onDelete, id, setId }) => {
       onRequestClose={onClose}
     >
       <View className="flex-1 justify-center items-center bg-black/50">
-        <View className="bg-white flex flex-col gap-2  w-4/5 p-6 px-3 rounded-xl">
-          <Text className="text-xl font-bold text-purple-700 mb-4">Delete Warden</Text>
+        <View className="bg-white flex flex-col gap-2 w-4/5 p-6 px-3 rounded-xl">
+          {/* Title */}
+          <Text className="text-xl font-bold mb-4" style={{ color: "#1b5e20" }}>
+            Delete Warden
+          </Text>
 
+          {/* Input field */}
           <Text className="text-gray-700">Enter Warden ID:</Text>
           <TextInput
-            className="border border-purple-400 p-2 rounded mt-2 mb-4"
+            className="p-2 rounded mt-2 mb-4"
+            style={{
+              borderWidth: 1,
+              borderColor: "#fbc02d",
+            }}
             placeholder="Warden ID"
             value={id}
             onChangeText={setId}
           />
 
+          {/* Buttons */}
           <View className="flex-row justify-between">
             <TouchableOpacity
-              className="bg-purple-500 px-4 py-2 rounded"
+              style={{
+                backgroundColor: "#1b5e20",
+                paddingVertical: 8,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+              }}
               onPress={onDelete}
             >
               <Text className="text-white font-bold">Delete</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              className="bg-purple-500 px-4 py-2 rounded"
+              style={{
+                backgroundColor: "#fbc02d",
+                paddingVertical: 8,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+              }}
               onPress={onClose}
             >
-              <Text className="text-white font-bold">Cancel</Text>
+              <Text className="text-black font-bold">Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -41,4 +60,5 @@ const DeleteWardenModal = ({ visible, onClose, onDelete, id, setId }) => {
     </Modal>
   );
 };
+
 export default DeleteWardenModal;

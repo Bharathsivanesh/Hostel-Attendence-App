@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Formik } from "formik";
@@ -16,7 +17,6 @@ import {
   fetchupdatewarden,
   updatewarden,
 } from "../../../../../services/admin/wardencredentials";
-import { Dimensions } from "react-native";
 import { useState } from "react";
 
 const Editwarden = () => {
@@ -60,12 +60,7 @@ const Editwarden = () => {
     }
     setloadertext("Fetching details...");
     if (!id) {
-      showtoast(
-        "error",
-        "No Id Entered",
-        "Enter Id Of Deleted Student 🌐",
-        "Top"
-      );
+      showtoast("error", "No Id Entered", "Enter Id Of Warden 🌐", "Top");
       return;
     }
     setloading(true);
@@ -91,16 +86,11 @@ const Editwarden = () => {
       setloading(false);
       return;
     }
-    setformdata(values); //instead of formdata im storing "values" latest update from formik
+    setformdata(values);
     setloadertext("Updating details...");
     console.log(formdata);
     if (!id) {
-      showtoast(
-        "error",
-        "No Id Entered",
-        "Enter Id Of Deleted Student 🌐",
-        "Top"
-      );
+      showtoast("error", "No Id Entered", "Enter Id Of Warden 🌐", "Top");
       return;
     }
     setloading(true);
@@ -120,46 +110,49 @@ const Editwarden = () => {
     <ScrollView>
       <Loader visible={loading} text={loadertext} />
       <View className="bg-white flex-1">
-        <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
-          <Text className="text-2xl font-bold text-white italic">
+        {/* Header */}
+        <View className="w-full h-12 bg-[#1b5e20] flex-row justify-center items-center rounded-bl-full rounded-br-full">
+          <Text className="text-2xl font-bold text-[#FBC02D] italic">
             Edit Warden
           </Text>
         </View>
 
+        {/* Input for Warden ID */}
         <View className="flex flex-col w-full items-center justify-center gap-4 mt-5">
-          <Text className="text-purple-500  text-center  w-full text-xl font-bold italic">
-            Enter Warden I'D
+          <Text className="text-[#1b5e20] text-center w-full text-xl font-bold italic">
+            Enter Warden ID
           </Text>
           <TextInput
             onChangeText={setid}
             style={{
               width: Math.min(screenWidth * 0.9, 208),
-              borderColor: "grey",
+              borderColor: "#1b5e20",
               borderWidth: 1,
               borderRadius: 8,
               paddingHorizontal: 10,
             }}
           />
-          <View className="flex flex-row  space-x-12 ">
+          <View className="flex flex-row space-x-12">
             <TouchableOpacity
               onPress={handlefetch}
-              className="bg-purple-400 p-2 px-8 border rounded-lg  "
+              className="bg-[#1b5e20] p-2 px-8 border rounded-lg"
             >
               <View className="flex-row justify-center items-center">
-                <Ionicons name="create-outline" size={20} color="white" />
-                <Text className="ml-1 text-white font-bold ">Edit</Text>
+                <Ionicons name="create-outline" size={20} color="#fbc02d" />
+                <Text className="ml-1 text-[#fbc02d] font-bold">Edit</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
 
+        {/* Formik Form */}
         <Formik
           initialValues={formdata}
           enableReinitialize={true}
           validationSchema={validationschema}
           onSubmit={(values) => {
             console.log("correct", values);
-            handleupdate(values); //latest update form formik
+            handleupdate(values);
           }}
         >
           {({
@@ -173,9 +166,9 @@ const Editwarden = () => {
             <View className="space-y-4 px-3 mt-6">
               {/* Name */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Name</Text>
+                <Text className="text-[#1b5e20] font-bold italic">Name</Text>
                 <TextInput
-                  className="border border-purple-400 rounded-xl p-3"
+                  className="border border-[#fbc02d] rounded-xl p-3"
                   placeholder="Enter Name"
                   onChangeText={handleChange("name")}
                   onBlur={handleBlur("name")}
@@ -188,22 +181,20 @@ const Editwarden = () => {
 
               {/* Joined Date */}
               <View>
-                <Text className="text-purple-600 font-bold italic">
+                <Text className="text-[#1b5e20] font-bold italic">
                   Joined Date
                 </Text>
                 <TextInput
-                  className="border border-purple-400 rounded-xl p-3"
+                  className="border border-[#fbc02d] rounded-xl p-3"
                   editable={false}
-                  onChangeText={handleChange("joined_date")}
-                  onBlur={handleBlur("joined_date")}
                   value={values.joined_date}
                 />
               </View>
 
               {/* Gender */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Gender</Text>
-                <View className="border border-purple-400 rounded-xl">
+                <Text className="text-[#1b5e20] font-bold italic">Gender</Text>
+                <View className="border border-[#fbc02d] rounded-xl">
                   <Picker
                     selectedValue={values.gender}
                     onValueChange={handleChange("gender")}
@@ -220,10 +211,10 @@ const Editwarden = () => {
 
               {/* Hostel Type */}
               <View>
-                <Text className="text-purple-600 font-bold   italic">
+                <Text className="text-[#1b5e20] font-bold italic">
                   Hostel Type
                 </Text>
-                <View className="border border-purple-400 rounded-xl">
+                <View className="border border-[#fbc02d] rounded-xl">
                   <Picker
                     selectedValue={values.hostel_type}
                     onValueChange={handleChange("hostel_type")}
@@ -240,10 +231,10 @@ const Editwarden = () => {
 
               {/* Block ID */}
               <View>
-                <Text className="text-purple-600 font-bold italic">
+                <Text className="text-[#1b5e20] font-bold italic">
                   Block ID
                 </Text>
-                <View className="border border-purple-400 rounded-xl">
+                <View className="border border-[#fbc02d] rounded-xl">
                   <Picker
                     selectedValue={values.block_id}
                     onValueChange={(itemValue) => {
@@ -256,7 +247,6 @@ const Editwarden = () => {
                     <Picker.Item label="BB-2" value="BB-2" />
                     <Picker.Item label="BB-3" value="BB-3" />
                     <Picker.Item label="GB-1" value="GB-1" />
-                    {/* Add more as needed */}
                   </Picker>
                 </View>
                 {touched.block_id && errors.block_id && (
@@ -264,13 +254,13 @@ const Editwarden = () => {
                 )}
               </View>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <View className="flex items-center justify-center mb-4">
                 <TouchableOpacity
                   onPress={handleSubmit}
-                  className="w-1/2 h-10 mt-6 rounded-md bg-purple-500 flex items-center justify-center"
+                  className="w-1/2 h-10 mt-6 rounded-md bg-[#1b5e20] flex items-center justify-center"
                 >
-                  <Text className="text-white text-lg font-semibold">
+                  <Text className="text-[#FBC02D] text-lg font-semibold">
                     Submit
                   </Text>
                 </TouchableOpacity>

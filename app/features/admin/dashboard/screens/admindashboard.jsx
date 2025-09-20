@@ -9,12 +9,14 @@ import { deletewarden } from "../../../../services/admin/wardencredentials";
 import showtoast from "../../../../components/Toastmessage";
 import checknetwork from "../../../../components/checknetwork";
 import Loader from "../../../../components/loader";
+
 const Admindashboard = () => {
   const navigation = useNavigation();
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [wardenId, setWardenId] = useState("");
   const [loading, setloading] = useState(false);
+
   const cards = [
     {
       icon: "person-add",
@@ -43,7 +45,6 @@ const Admindashboard = () => {
   ];
 
   const handleDelete = async () => {
-    // Your delete logic using wardenId
     const isConnected = await checknetwork();
     if (!isConnected) {
       showtoast(
@@ -78,10 +79,10 @@ const Admindashboard = () => {
     <View className="bg-white flex-1 pt-12">
       <Loader visible={loading} text="Deleting Warden details..." />
       <View className="flex items-center justify-center">
-        <Text className="text-3xl text-purple-500 font-extrabold">
+        <Text className="text-3xl font-extrabold text-[#1b5e20]">
           👨‍💼 Admin Dashboard
         </Text>
-        <Text className="mt-3 font-medium text-gray-500">
+        <Text className="mt-3 font-medium text-gray-600">
           Manage wardens efficiently
         </Text>
       </View>
@@ -102,21 +103,21 @@ const Admindashboard = () => {
                   navigation.navigate(obj.route);
                 }
               }}
-              className="flex flex-row gap-3 items-center rounded-xl bg-purple-200 p-4 shadow-sm"
+              className="flex flex-row gap-3 items-center rounded-xl bg-[#fbc02d] p-4 shadow-sm"
             >
-              <Ionicons name={obj.icon} size={40} color="#7C3AED" />
+              <Ionicons name={obj.icon} size={40} color="#1b5e20" />
               <View>
-                <Text className="text-purple-700 text-xl font-semibold">
+                <Text className="text-[#1b5e20] text-xl font-semibold">
                   {obj.text1}
                 </Text>
-                <Text className="text-purple-600 text-sm">{obj.text2}</Text>
+                <Text className="text-[#1b5e20] text-sm">{obj.text2}</Text>
               </View>
             </TouchableOpacity>
           </Animatable.View>
         ))}
       </View>
 
-      {/* this is model */}
+      {/* Modal for Delete */}
       <DeleteWardenModal
         visible={isModalVisible}
         onClose={() => setModalVisible(false)}

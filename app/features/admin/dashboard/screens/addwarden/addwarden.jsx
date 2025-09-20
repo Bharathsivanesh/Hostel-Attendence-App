@@ -23,7 +23,6 @@ const Addwarden = () => {
     gender: Yup.string().required("Gender is required"),
     hostel_type: Yup.string().required("Hostel Type is required"),
     block_id: Yup.string().required("Block ID is required"),
-
     Year: Yup.string().required("Year is required"),
     warden_id: Yup.string().required("Warden ID is required"),
     password: Yup.string().required("Password is required"),
@@ -54,20 +53,23 @@ const Addwarden = () => {
     setloading(false);
     resetForm();
   };
+
   const formatDate = (date) => {
     if (!date) return "";
     const d = new Date(date);
     const day = String(d.getDate()).padStart(2, "0");
-    const month = String(d.getMonth() + 1).padStart(2, "0"); // Months start from 0
+    const month = String(d.getMonth() + 1).padStart(2, "0");
     const year = d.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
   return (
     <ScrollView>
       <Loader visible={loading} text="Adding Warden details..." />
       <View className="bg-white flex-1">
-        <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
-          <Text className="text-2xl font-bold text-white italic">
+        {/* Header */}
+        <View className="w-full h-12 bg-[#1B5E20] flex-row justify-center items-center rounded-bl-full rounded-br-full">
+          <Text className="text-2xl font-bold text-[#FBC02D] italic">
             Add Warden
           </Text>
         </View>
@@ -79,7 +81,6 @@ const Addwarden = () => {
             gender: "",
             hostel_type: "",
             block_id: "",
-
             Year: "",
             warden_id: "",
             password: "",
@@ -98,9 +99,9 @@ const Addwarden = () => {
             <View className="space-y-4 px-3 mt-6">
               {/* Name */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Name</Text>
+                <Text className="text-[#1B5E20] font-bold italic">Name</Text>
                 <TextInput
-                  className="border border-purple-400 rounded-xl p-3"
+                  className="border border-[#FBC02D] rounded-xl p-3"
                   placeholder="Enter Name"
                   onChangeText={handleChange("name")}
                   onBlur={handleBlur("name")}
@@ -113,11 +114,11 @@ const Addwarden = () => {
 
               {/* Joined Date */}
               <View>
-                <Text className="text-purple-600 font-bold italic">
+                <Text className="text-[#1B5E20] font-bold italic">
                   Joined Date
                 </Text>
                 <TextInput
-                  className="border border-purple-400 rounded-xl p-3"
+                  className="border border-[#FBC02D] rounded-xl p-3"
                   editable={false}
                   onChangeText={handleChange("joined_date")}
                   onBlur={handleBlur("joined_date")}
@@ -127,8 +128,8 @@ const Addwarden = () => {
 
               {/* Gender */}
               <View>
-                <Text className="text-purple-600 font-bold italic">Gender</Text>
-                <View className="border border-purple-400 rounded-xl">
+                <Text className="text-[#1B5E20] font-bold italic">Gender</Text>
+                <View className="border border-[#FBC02D] rounded-xl">
                   <Picker
                     selectedValue={values.gender}
                     onValueChange={handleChange("gender")}
@@ -145,10 +146,10 @@ const Addwarden = () => {
 
               {/* Hostel Type */}
               <View>
-                <Text className="text-purple-600 font-bold   italic">
+                <Text className="text-[#1B5E20] font-bold italic">
                   Hostel Type
                 </Text>
-                <View className="border border-purple-400 rounded-xl">
+                <View className="border border-[#FBC02D] rounded-xl">
                   <Picker
                     selectedValue={values.hostel_type}
                     onValueChange={handleChange("hostel_type")}
@@ -165,15 +166,15 @@ const Addwarden = () => {
 
               {/* Block ID */}
               <View>
-                <Text className="text-purple-600 font-bold italic">
+                <Text className="text-[#1B5E20] font-bold italic">
                   Block ID
                 </Text>
-                <View className="border border-purple-400 rounded-xl">
+                <View className="border border-[#FBC02D] rounded-xl">
                   <Picker
                     selectedValue={values.block_id}
-                    onValueChange={(itemValue) => {
-                      handleChange("block_id")(itemValue);
-                    }}
+                    onValueChange={(itemValue) =>
+                      handleChange("block_id")(itemValue)
+                    }
                     onBlur={handleBlur("block_id")}
                   >
                     <Picker.Item label="Select Block ID" value="" />
@@ -181,7 +182,6 @@ const Addwarden = () => {
                     <Picker.Item label="BB-2" value="BB-2" />
                     <Picker.Item label="BB-3" value="BB-3" />
                     <Picker.Item label="GB-1" value="GB-1" />
-                    {/* Add more as needed */}
                   </Picker>
                 </View>
                 {touched.block_id && errors.block_id && (
@@ -189,11 +189,10 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Floor */}
-
+              {/* Year */}
               <View>
-                <Text className="text-purple-600 font-bold   italic">Year</Text>
-                <View className="border border-purple-400 rounded-xl">
+                <Text className="text-[#1B5E20] font-bold italic">Year</Text>
+                <View className="border border-[#FBC02D] rounded-xl">
                   <Picker
                     selectedValue={values.Year}
                     onValueChange={handleChange("Year")}
@@ -213,11 +212,11 @@ const Addwarden = () => {
 
               {/* Warden ID */}
               <View>
-                <Text className="text-purple-600 font-bold italic">
+                <Text className="text-[#1B5E20] font-bold italic">
                   Warden ID
                 </Text>
                 <TextInput
-                  className="border border-purple-400 rounded-xl p-3"
+                  className="border border-[#FBC02D] rounded-xl p-3"
                   placeholder="Enter Warden ID"
                   onChangeText={handleChange("warden_id")}
                   onBlur={handleBlur("warden_id")}
@@ -230,11 +229,11 @@ const Addwarden = () => {
 
               {/* Password */}
               <View>
-                <Text className="text-purple-600 font-bold italic">
+                <Text className="text-[#1B5E20] font-bold italic">
                   Password
                 </Text>
                 <TextInput
-                  className="border border-purple-400 rounded-xl p-3"
+                  className="border border-[#FBC02D] rounded-xl p-3"
                   placeholder="Enter Password"
                   secureTextEntry
                   onChangeText={handleChange("password")}
@@ -250,9 +249,9 @@ const Addwarden = () => {
               <View className="flex items-center justify-center mb-4">
                 <TouchableOpacity
                   onPress={handleSubmit}
-                  className="w-1/2 h-10 mt-6 rounded-md bg-purple-500 flex items-center justify-center"
+                  className="w-1/2 h-10 mt-6 rounded-md bg-[#1B5E20] flex items-center justify-center"
                 >
-                  <Text className="text-white text-lg font-semibold">
+                  <Text className="text-[#FBC02D] text-lg font-semibold">
                     Submit
                   </Text>
                 </TouchableOpacity>

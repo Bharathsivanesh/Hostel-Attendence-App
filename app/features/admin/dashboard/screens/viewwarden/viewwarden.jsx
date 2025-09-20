@@ -40,11 +40,18 @@ const Viewwarden = () => {
   return (
     <ScrollView className="bg-gray-100 flex-1 ">
       <Loader visible={loading} text="Fetching Warden details..." />
-      <View className="w-full h-12 mb-6 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
-        <Text className="text-2xl font-bold text-white italic">
+
+      {/* Header */}
+      <View
+        className="w-full h-12 mb-6 flex-row justify-center items-center rounded-bl-full rounded-br-full"
+        style={{ backgroundColor: "#1b5e20" }}
+      >
+        <Text className="text-2xl font-bold text-[#fbc02d] italic">
           Warden Details
         </Text>
       </View>
+
+      {/* No Data */}
       {!loading && data.length === 0 && (
         <View className="flex items-center mt-6">
           <Text className="text-lg font-semibold text-gray-500">
@@ -52,18 +59,29 @@ const Viewwarden = () => {
           </Text>
         </View>
       )}
+
+      {/* Data Cards */}
       {data.map((warden, idx) => (
         <View
           key={idx}
-          className=" mx-8 bg-white mb-8  rounded-xl shadow-md p-3"
+          className="mx-8 bg-white mb-8 rounded-xl shadow-md p-3"
+          style={{
+            borderLeftWidth: 5,
+            borderLeftColor: "#fbc02d",
+            borderRightWidth: 5,
+            borderRightColor: "#1b5e20",
+          }}
         >
           <View className="items-center mb-4 flex flex-row justify-around">
             <Image
               source={require("../../../../../assets/admin/viewwarden/idlogo.png")}
-              className="w-16 h-16 rounded-full "
+              className="w-16 h-16 rounded-full"
             />
-            <Text className=" text-xl text-purple-400 font-black w-full ml-6">
-              WARDEN I'D
+            <Text
+              className="text-xl font-black w-full ml-6"
+              style={{ color: "#1b5e20" }}
+            >
+              WARDEN ID
             </Text>
           </View>
 
@@ -85,7 +103,10 @@ const Viewwarden = () => {
           <Text className="text-base text-gray-700 mt-1">
             Warden Year: {warden.Year}
           </Text>
-          <Text className="text-base text-gray-700 mt-1">
+          <Text
+            className="text-base font-semibold mt-1"
+            style={{ color: "#fbc02d" }}
+          >
             Warden ID: {warden.warden_id}
           </Text>
         </View>
