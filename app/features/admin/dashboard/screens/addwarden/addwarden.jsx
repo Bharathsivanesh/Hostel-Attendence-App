@@ -67,7 +67,6 @@ const Addwarden = () => {
     <ScrollView>
       <Loader visible={loading} text="Adding Warden details..." />
       <View className="bg-white flex-1">
-        {/* Header */}
         <View className="w-full h-12 bg-[#1B5E20] flex-row justify-center items-center rounded-bl-full rounded-br-full">
           <Text className="text-2xl font-bold text-[#FBC02D] italic">
             Add Warden
@@ -97,7 +96,6 @@ const Addwarden = () => {
             touched,
           }) => (
             <View className="space-y-4 px-3 mt-6">
-              {/* Name */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">Name</Text>
                 <TextInput
@@ -112,7 +110,6 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Joined Date */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">
                   Joined Date
@@ -126,7 +123,6 @@ const Addwarden = () => {
                 />
               </View>
 
-              {/* Gender */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">Gender</Text>
                 <View className="border border-[#FBC02D] rounded-xl">
@@ -144,7 +140,6 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Hostel Type */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">
                   Hostel Type
@@ -164,7 +159,6 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Block ID */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">
                   Block ID
@@ -189,7 +183,6 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Year */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">Year</Text>
                 <View className="border border-[#FBC02D] rounded-xl">
@@ -210,7 +203,6 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Warden ID */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">
                   Warden ID
@@ -227,7 +219,6 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Password */}
               <View>
                 <Text className="text-[#1B5E20] font-bold italic">
                   Password
@@ -245,7 +236,6 @@ const Addwarden = () => {
                 )}
               </View>
 
-              {/* Submit Button */}
               <View className="flex items-center justify-center mb-4">
                 <TouchableOpacity
                   onPress={handleSubmit}

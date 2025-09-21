@@ -178,14 +178,14 @@ const Editdetails = ({ route }) => {
         <Loader visible={loading} text={loadertext} />
         <View className="bg-white flex-1">
           <View className="flex flex-col ">
-            <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
-              <Text className="text-2xl font-bold text-white text-center w-72 italic">
+            <View className="w-full h-12 bg-[#1b5e20] flex-row justify-center items-center rounded-bl-full rounded-br-full">
+              <Text className="text-2xl font-bold text-[#fbc02d] text-center w-72 italic">
                 {title}
               </Text>
             </View>
 
             <View className="flex flex-col w-full items-center justify-center gap-4 mt-5">
-              <Text className="text-purple-500  text-center  w-full text-xl font-bold italic">
+              <Text className="text-[#1b5e20]  text-center  w-full text-xl font-bold italic">
                 Enter Student I'D
               </Text>
               <TextInput
@@ -193,7 +193,7 @@ const Editdetails = ({ route }) => {
                 value={id}
                 style={{
                   width: Math.min(screenWidth * 0.9, 208),
-                  borderColor: "grey",
+                  borderColor: "#fbc02d",
                   borderWidth: 1,
                   borderRadius: 8,
                   paddingHorizontal: 10,
@@ -202,15 +202,15 @@ const Editdetails = ({ route }) => {
               <View className="flex flex-row  space-x-12 ">
                 <TouchableOpacity onPress={handlefetch}>
                   <View className="flex-row items-center">
-                    <Ionicons name="create-outline" size={20} color="#3B82F6" />
-                    <Text className="ml-1 text-[#3B82F6]">Edit</Text>
+                    <Ionicons name="create-outline" size={20} color="#1b5e20" />
+                    <Text className="ml-1 text-[#1b5e20]">Edit</Text>
                   </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={handledelete}>
                   <View className="flex-row items-center">
-                    <Ionicons name="trash-outline" size={20} color="red" />
-                    <Text className="ml-1 text-red-600">Delete</Text>
+                    <Ionicons name="trash-outline" size={20} color="#1b5e20" />
+                    <Text className="ml-1 text-[#1b5e20]">Delete</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -237,11 +237,11 @@ const Editdetails = ({ route }) => {
                 }) => (
                   <View className="space-y-4 mt-2">
                     <View>
-                      <Text className="text-purple-600 font-bold italic">
+                      <Text className="text-[#1b5e20] font-bold italic">
                         Room ID
                       </Text>
                       <TextInput
-                        className="border border-purple-400 rounded-xl p-3"
+                        className="border border-[#fbc02d] rounded-xl p-3"
                         placeholder="Enter Room ID"
                         onChangeText={handleChange("roomid")} //this roomid sholud match with initialvalues
                         onBlur={handleBlur("roomid")}
@@ -252,11 +252,11 @@ const Editdetails = ({ route }) => {
                       )}
                     </View>
                     <View>
-                      <Text className="text-purple-600 font-bold italic">
+                      <Text className="text-[#1b5e20] font-bold italic">
                         Block-ID
                       </Text>
 
-                      <View className="border border-purple-400 rounded-xl">
+                      <View className="border border-[#fbc02d] rounded-xl">
                         <Picker
                           selectedValue={values.blockid}
                           onValueChange={(itemValue) =>
@@ -269,7 +269,6 @@ const Editdetails = ({ route }) => {
                           <Picker.Item label="BB-2" value="BB-2" />
                           <Picker.Item label="BB-3" value="BB-3" />
                           <Picker.Item label="GB-1" value="GB-1" />
-                          {/* Add more options if needed */}
                         </Picker>
                       </View>
 
@@ -279,11 +278,11 @@ const Editdetails = ({ route }) => {
                     </View>
 
                     <View>
-                      <Text className="text-purple-600 font-bold italic">
+                      <Text className="text-[#1b5e20] font-bold italic">
                         Name
                       </Text>
                       <TextInput
-                        className="border border-purple-400 rounded-xl p-3"
+                        className="border border-[#fbc02d] rounded-xl p-3"
                         placeholder="Enter Name"
                         onChangeText={handleChange("name")} //this roomid sholud match with initialvalues
                         onBlur={handleBlur("name")}
@@ -295,11 +294,11 @@ const Editdetails = ({ route }) => {
                     </View>
 
                     <View>
-                      <Text className="text-purple-600 font-bold italic mb-1">
+                      <Text className="text-[#1b5e20] font-bold italic mb-1">
                         Reg No
                       </Text>
                       <TextInput
-                        className="border border-purple-400 rounded-xl p-3"
+                        className="border border-[#fbc02d] rounded-xl p-3"
                         keyboardType="number-pad"
                         placeholder="Enter Reg No"
                         onChangeText={handleChange("reg")}
@@ -311,10 +310,10 @@ const Editdetails = ({ route }) => {
                       )}
                     </View>
                     <View>
-                      <Text className="text-purple-600 font-bold italic mb-1">
+                      <Text className="text-[#1b5e20] font-bold italic mb-1">
                         Year
                       </Text>
-                      <View className="border border-purple-400 rounded-xl">
+                      <View className="border border-[#fbc02d] rounded-xl">
                         <Picker
                           selectedValue={values.year}
                           onValueChange={handleChange("year")}
@@ -333,10 +332,10 @@ const Editdetails = ({ route }) => {
                     </View>
 
                     <View>
-                      <Text className="text-purple-600 font-bold italic mb-1">
+                      <Text className="text-[#1b5e20] font-bold italic mb-1">
                         Department
                       </Text>
-                      <View className="border border-purple-400 rounded-xl">
+                      <View className="border border-[#fbc02d] rounded-xl">
                         <Picker
                           selectedValue={values.dept}
                           onValueChange={handleChange("dept")}
@@ -354,10 +353,10 @@ const Editdetails = ({ route }) => {
                       )}
                     </View>
                     <View>
-                      <Text className="text-purple-600 font-bold italic mb-1">
+                      <Text className="text-[#1b5e20] font-bold italic mb-1">
                         Section
                       </Text>
-                      <View className="border border-purple-400 rounded-xl">
+                      <View className="border border-[#fbc02d] rounded-xl">
                         <Picker
                           selectedValue={values.section}
                           onValueChange={handleChange("section")}
@@ -375,11 +374,11 @@ const Editdetails = ({ route }) => {
                       )}
                     </View>
                     <View>
-                      <Text className="text-purple-600 font-bold italic mb-1">
+                      <Text className="text-[#1b5e20] font-bold italic mb-1">
                         Student No
                       </Text>
                       <TextInput
-                        className="border border-purple-400 rounded-xl p-3"
+                        className="border border-[#fbc02d] rounded-xl p-3"
                         placeholder="Enter Student Number"
                         keyboardType="phone-pad"
                         onChangeText={handleChange("st_phone")}
@@ -391,11 +390,11 @@ const Editdetails = ({ route }) => {
                       )}
                     </View>
                     <View>
-                      <Text className="text-purple-600 font-bold italic mb-1">
+                      <Text className="text-[#1b5e20] font-bold italic mb-1">
                         Parent No
                       </Text>
                       <TextInput
-                        className="border border-purple-400 rounded-xl p-3"
+                        className="border border-[#fbc02d] rounded-xl p-3"
                         placeholder="Enter Parent Number"
                         keyboardType="phone-pad"
                         onChangeText={handleChange("parent_phone")}
@@ -411,9 +410,11 @@ const Editdetails = ({ route }) => {
                     <View className="flex items-center justify-center ">
                       <TouchableOpacity
                         onPress={handleSubmit}
-                        className="w-1/2 h-9 mt-8 rounded-md flex items-center justify-center  mb-6 bg-purple-500 "
+                        className="w-1/2 h-9 mt-8 rounded-md flex items-center justify-center  mb-6 bg-[#1b5e20] "
                       >
-                        <Text className="text-white text-center ">Submit</Text>
+                        <Text className="text-[#fbc02d] text-center ">
+                          Submit
+                        </Text>
                       </TouchableOpacity>
                     </View>
                   </View>

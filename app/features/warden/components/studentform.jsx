@@ -89,7 +89,7 @@ const Studentfrom = ({ setloading }) => {
         }) => (
           <View className="space-y-4 mt-2">
             <View>
-              <Text className="text-purple-600 font-bold italic">Room ID</Text>
+              <Text className="text-[#1b5e20] font-bold italic">Room ID</Text>
               <TextInput
                 className="border border-purple-400 rounded-xl p-3"
                 placeholder="Enter Room ID"
@@ -103,9 +103,9 @@ const Studentfrom = ({ setloading }) => {
             </View>
 
             <View>
-              <Text className="text-purple-600 font-bold italic">Block-ID</Text>
+              <Text className="text-[#1b5e20] font-bold italic">Block-ID</Text>
 
-              <View className="border border-purple-400 rounded-xl">
+              <View className="border border-[#fbc02d] rounded-xl">
                 <Picker
                   selectedValue={values.blockid}
                   onValueChange={(itemValue) =>
@@ -127,9 +127,9 @@ const Studentfrom = ({ setloading }) => {
             </View>
 
             <View>
-              <Text className="text-purple-600 font-bold italic">Name</Text>
+              <Text className="text-[#1b5e20] font-bold italic">Name</Text>
               <TextInput
-                className="border border-purple-400 rounded-xl p-3"
+                className="border border-[#fbc02d] rounded-xl p-3"
                 placeholder="Enter Name"
                 onChangeText={handleChange("name")} //this roomid sholud match with initialvalues
                 onBlur={handleBlur("name")}
@@ -141,11 +141,11 @@ const Studentfrom = ({ setloading }) => {
             </View>
 
             <View>
-              <Text className="text-purple-600 font-bold italic mb-1">
+              <Text className="text-[#1b5e20] font-bold italic mb-1">
                 Reg No
               </Text>
               <TextInput
-                className="border border-purple-400 rounded-xl p-3"
+                className="border border-[#fbc02d] rounded-xl p-3"
                 keyboardType="number-pad"
                 placeholder="Enter Reg No"
                 onChangeText={handleChange("reg")}
@@ -157,10 +157,8 @@ const Studentfrom = ({ setloading }) => {
               )}
             </View>
             <View>
-              <Text className="text-purple-600 font-bold italic mb-1">
-                Year
-              </Text>
-              <View className="border border-purple-400 rounded-xl">
+              <Text className="text-[#1b5e20] font-bold italic mb-1">Year</Text>
+              <View className="border border-[#fbc02d] rounded-xl">
                 <Picker
                   selectedValue={values.year}
                   onValueChange={handleChange("year")}
@@ -179,10 +177,10 @@ const Studentfrom = ({ setloading }) => {
             </View>
 
             <View>
-              <Text className="text-purple-600 font-bold italic mb-1">
+              <Text className="text-[#1b5e20] font-bold italic mb-1">
                 Department
               </Text>
-              <View className="border border-purple-400 rounded-xl">
+              <View className="border border-[#fbc02d] rounded-xl">
                 <Picker
                   selectedValue={values.dept}
                   onValueChange={handleChange("dept")}
@@ -200,10 +198,10 @@ const Studentfrom = ({ setloading }) => {
               )}
             </View>
             <View>
-              <Text className="text-purple-600 font-bold italic mb-1">
+              <Text className="text-[#1b5e20] font-bold italic mb-1">
                 Section
               </Text>
-              <View className="border border-purple-400 rounded-xl">
+              <View className="border border-[#fbc02d] rounded-xl">
                 <Picker
                   selectedValue={values.section}
                   onValueChange={handleChange("section")}
@@ -221,11 +219,11 @@ const Studentfrom = ({ setloading }) => {
               )}
             </View>
             <View>
-              <Text className="text-purple-600 font-bold italic mb-1">
+              <Text className="text-[#1b5e20] font-bold italic mb-1">
                 Student No
               </Text>
               <TextInput
-                className="border border-purple-400 rounded-xl p-3"
+                className="border border-[#fbc02d] rounded-xl p-3"
                 placeholder="Enter Student Number"
                 keyboardType="phone-pad"
                 onChangeText={handleChange("st_phone")}
@@ -237,11 +235,11 @@ const Studentfrom = ({ setloading }) => {
               )}
             </View>
             <View>
-              <Text className="text-purple-600 font-bold italic mb-1">
+              <Text className="text-[#1b5e20] font-bold italic mb-1">
                 Parent No
               </Text>
               <TextInput
-                className="border border-purple-400 rounded-xl p-3"
+                className="border border-[#fbc02d] rounded-xl p-3"
                 placeholder="Enter Parent Number"
                 keyboardType="phone-pad"
                 onChangeText={handleChange("parent_phone")}
@@ -255,9 +253,9 @@ const Studentfrom = ({ setloading }) => {
             <View className="flex items-center justify-center ">
               <TouchableOpacity
                 onPress={handleSubmit}
-                className="w-1/2 h-9 mt-8 rounded-md flex items-center justify-center  mb-6 bg-purple-500 "
+                className="w-1/2 h-9 mt-8 rounded-md flex items-center justify-center  mb-6 bg-[#1b5e20] "
               >
-                <Text className="text-white text-center ">Submit</Text>
+                <Text className="text-[#fbc02d] text-center ">Submit</Text>
               </TouchableOpacity>
             </View>
           </View>

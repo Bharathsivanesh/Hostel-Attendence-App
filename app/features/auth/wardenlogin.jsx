@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import {
+  Image,
   ScrollView,
   Text,
   TextInput,
@@ -15,6 +16,7 @@ import showtoast from "../../components/Toastmessage";
 import checknetwork from "../../components/checknetwork";
 import Loader from "../../components/loader";
 import { Wardencontext } from "../../context/wardencontext";
+
 const Wardenlogin = () => {
   const navigation = useNavigation();
   const { setWardenifo } = useContext(Wardencontext);
@@ -50,51 +52,49 @@ const Wardenlogin = () => {
     setPassword("");
     setloading(false);
   };
+
   return (
-    <ScrollView className=" bg-white">
+    <ScrollView className="bg-white">
       <Loader visible={loading} text="Authenticating..." />
       <View className="flex-1 items-center mt-8 justify-start">
-        <Video
-          source={require("../../assets/auth/Login.mp4")}
-          isLooping
+        <Image
+          source={require("../../assets/auth/wardenlogin1.png")}
           resizeMode="contain"
-          shouldPlay
-          style={{ width: "100%", height: 300 }}
+          style={{ width: "200%", height: 300 }}
         />
 
-        {/* Login Section */}
-        <View className="w-full mt-16 px-6">
-          <Text className="font-black text-2xl text-purple-500 text-center mb-8">
-            Let's Get Started
+        <View className="w-full mt-12 px-6">
+          <Text className="font-black text-2xl text-[#1b5e20] text-center mb-8">
+            👮‍♂️ Warden Access 🔑
           </Text>
 
           <View className="flex flex-col items-center gap-11">
-            <View className="flex-row items-center border-b-2 border-purple-500 w-72">
+            <View className="flex-row items-center border-b-2 border-[#1b5e20] w-72">
               <MaterialIcons
                 name="email"
                 size={24}
-                color="#7e22ce"
+                color="#fbc02d"
                 className="mr-2"
               />
               <TextInput
                 placeholder="Email"
                 onChangeText={setEmail}
-                className="flex-1 pl-2"
+                className="flex-1 pl-2 text-[#1b5e20]"
                 value={email}
               />
             </View>
 
-            <View className="flex-row items-center border-b-2 border-purple-500 w-72">
+            <View className="flex-row items-center border-b-2 border-[#1b5e20] w-72">
               <MaterialIcons
                 name="lock"
                 size={24}
-                color="#7e22ce"
+                color="#fbc02d"
                 className="mr-2"
               />
               <TextInput
                 placeholder="Password"
                 secureTextEntry
-                className="flex-1 pl-2"
+                className="flex-1 pl-2 text-[#1b5e20]"
                 onChangeText={setPassword}
                 value={password}
               />
@@ -109,4 +109,5 @@ const Wardenlogin = () => {
     </ScrollView>
   );
 };
+
 export default Wardenlogin;

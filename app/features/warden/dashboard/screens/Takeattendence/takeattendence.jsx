@@ -11,7 +11,7 @@ import {
   addattendence,
 } from "../../../../../services/attendence/attendence";
 import { Linking } from "react-native";
-
+import { capitalizeText } from "../../../../../utils/capitalize";
 const TakeAttendence = () => {
   const { wardeninfo } = useContext(Wardencontext); //context api
   const route = useRoute(); //while navigating iam passed props
@@ -24,16 +24,20 @@ const TakeAttendence = () => {
   const [loading, setloading] = useState(false);
   const [loadingtext, setloadingtext] = useState("");
   useEffect(() => {
-    const currentDate = new Date();
-    const format = currentDate.toLocaleDateString("en-GB");
-    const formattedTime = currentDate.toLocaleTimeString("en-IN", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
+    const updateDateTime = () => {
+      const currentDate = new Date();
+      const format = currentDate.toLocaleDateString("en-GB");
+      const formattedTime = currentDate.toLocaleTimeString("en-IN", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
 
-    setdate(format);
-    settime(formattedTime);
+      setdate(format);
+      settime(formattedTime);
+    };
+    updateDateTime();
+    const timer = setInterval(updateDateTime, 60000);
 
     const fetchstudents = async () => {
       const isConnected = await checknetwork();
@@ -69,6 +73,7 @@ const TakeAttendence = () => {
     };
 
     fetchstudents();
+    return () => clearInterval(timer);
   }, []);
 
   const handleStatusChange = (idx, status) => {
@@ -132,50 +137,42 @@ const TakeAttendence = () => {
 
   return (
     <>
-      <ScrollView className="bg-white flex-1">
+      <ScrollView className="bg-gray-100 flex-1">
         <Loader visible={loading} text={loadingtext} />
-        <View className="flex-1 bg-white flex-col gap-6">
+        <View className="flex-1 bg-gray-100 flex-col gap-6">
           {/* Header */}
-          <View className="bg-purple-400 flex justify-center items-center h-12 rounded-bl-full rounded-br-full">
-            <Text className="text-white font-black text-2xl">
+          <View
+            className="flex justify-center items-center h-12 rounded-bl-full rounded-br-full"
+            style={{ backgroundColor: "#1b5e20" }}
+          >
+            <Text className="text-[#fbc02d] font-black text-2xl">
               Attendance Track
             </Text>
           </View>
 
-          {/* Date and Time */}
           <View className="flex flex-row justify-around">
-            <View className="flex flex-row justify-center items-center gap-1">
-              <Image
-                source={require("../../../../../assets/attendence/calender.png")}
-              />
-              <Text>{date}</Text>
-            </View>
-            <View className="flex flex-row justify-center items-center gap-1">
-              <Image
-                source={require("../../../../../assets/attendence/Clock.png")}
-              />
-              <Text>{time}</Text>
+            <View className="flex flex-row justify-start items-center gap-1">
+              <Text className="text-[#1b5e20] text-xl  font-bold">{date}</Text>
+              <Text className="text-[#fbc02d] text-xl  font-bold">/</Text>
+              <Text className="text-[#1b5e20] text-xl  font-bold">{time}</Text>
+              <Text className="text-[#fbc02d] text-xl  font-bold">/</Text>
+              <Text className="text-[#1b5e20] text-xl  font-bold">
+                Room Id: {roomid}
+              </Text>
             </View>
           </View>
 
-          {/* Room ID */}
-          <View>
-            <Text className="text-center text-lg font-black text-purple-400">
-              ROOM I'D : {roomid}
-            </Text>
-          </View>
-
-          {/* Student Cards */}
-          <View className="flex flex-col p-3">
+          <View className="flex flex-col p-6">
             {students.map((data, idx) => (
-              <View className="bg-purple-300 rounded-lg h-40 mb-5" key={idx}>
+              <View className="bg-[#fbc02d] rounded-lg mb-5" key={idx}>
                 <View className="flex flex-col gap-6 w-full p-3">
+                  {/* Student Info */}
                   <View className="flex flex-row justify-between w-full p-2">
-                    <Text className="text-white font-black text-lg">
-                      {data.name}
+                    <Text className="text-[#1b5e20] font-black text-lg">
+                      {capitalizeText(data.name)}
                     </Text>
-                    <Text className="text-white font-black text-lg">
-                      {data.dept}
+                    <Text className="text-[#1b5e20] font-black text-lg">
+                      {capitalizeText(data.dept)}
                     </Text>
                     <TouchableOpacity
                       onPress={() =>
@@ -195,50 +192,53 @@ const TakeAttendence = () => {
                   </View>
 
                   <View className="flex flex-row justify-between w-full">
-                    {["PRESENT", "ABSENT", "PERMISSION"].map((status) => (
-                      <TouchableOpacity
-                        key={status}
-                        className={`p-2 rounded-lg ${
-                          attendanceStatus[idx] === status
-                            ? status === "PRESENT"
-                              ? "bg-[#4ACC92]"
-                              : status === "ABSENT"
-                              ? "bg-[#FF080C]"
-                              : "bg-[#D2CA3E]"
-                            : `border ${
-                                status === "PRESENT"
-                                  ? "border-[#4ACC92] border-2 "
-                                  : status === "ABSENT"
-                                  ? "border-[#FF080C] border-2"
-                                  : "border-[#D2CA3E] border-2"
-                              }`
-                        }`}
-                        onPress={() => handleStatusChange(idx, status)}
-                      >
-                        <Text
-                          className={`${
-                            attendanceStatus[idx] === status
-                              ? "text-white"
-                              : "text-white"
-                          }`}
+                    {["PRESENT", "ABSENT", "PERMISSION"].map((status) => {
+                      const isSelected = attendanceStatus[idx] === status;
+                      const selectedBg =
+                        status === "PRESENT" ? "#1b5e20" : "#1b5e20";
+
+                      const borderColor =
+                        status === "PRESENT" ? "#1b5e20" : "#1b5e20";
+
+                      return (
+                        <TouchableOpacity
+                          key={status}
+                          className="p-2 rounded-lg"
+                          style={{
+                            backgroundColor: isSelected
+                              ? selectedBg
+                              : "#e0e0e0",
+                            borderWidth: isSelected ? 0 : 2,
+                            borderColor: "#1b5e20",
+                          }}
+                          onPress={() => handleStatusChange(idx, status)}
                         >
-                          {status}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
+                          <Text
+                            style={{
+                              color: isSelected ? "#ffffff" : "#000000",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {status}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    })}
                   </View>
                 </View>
               </View>
             ))}
           </View>
 
-          {/* Submit Button */}
-          <View className="flex justify-center items-center mb-6">
+          <View className="flex  justify-center items-center mb-6">
             <TouchableOpacity
-              className="bg-purple-400 w-40 h-10 rounded-lg flex justify-center items-center"
+              className="w-40 h-10 rounded-lg flex justify-center items-center"
+              style={{ backgroundColor: "#1b5e20" }}
               onPress={handlesubmit}
             >
-              <Text className="text-white font-black text-center">SUBMIT</Text>
+              <Text className="text-[#fbc02d] font-black text-center">
+                SUBMIT
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

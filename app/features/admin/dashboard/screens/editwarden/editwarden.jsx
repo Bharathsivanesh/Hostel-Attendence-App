@@ -145,7 +145,6 @@ const Editwarden = () => {
           </View>
         </View>
 
-        {/* Formik Form */}
         <Formik
           initialValues={formdata}
           enableReinitialize={true}
@@ -164,7 +163,6 @@ const Editwarden = () => {
             touched,
           }) => (
             <View className="space-y-4 px-3 mt-6">
-              {/* Name */}
               <View>
                 <Text className="text-[#1b5e20] font-bold italic">Name</Text>
                 <TextInput
@@ -179,7 +177,6 @@ const Editwarden = () => {
                 )}
               </View>
 
-              {/* Joined Date */}
               <View>
                 <Text className="text-[#1b5e20] font-bold italic">
                   Joined Date
@@ -191,7 +188,6 @@ const Editwarden = () => {
                 />
               </View>
 
-              {/* Gender */}
               <View>
                 <Text className="text-[#1b5e20] font-bold italic">Gender</Text>
                 <View className="border border-[#fbc02d] rounded-xl">
@@ -209,7 +205,6 @@ const Editwarden = () => {
                 )}
               </View>
 
-              {/* Hostel Type */}
               <View>
                 <Text className="text-[#1b5e20] font-bold italic">
                   Hostel Type
@@ -229,7 +224,6 @@ const Editwarden = () => {
                 )}
               </View>
 
-              {/* Block ID */}
               <View>
                 <Text className="text-[#1b5e20] font-bold italic">
                   Block ID
@@ -254,7 +248,6 @@ const Editwarden = () => {
                 )}
               </View>
 
-              {/* Submit */}
               <View className="flex items-center justify-center mb-4">
                 <TouchableOpacity
                   onPress={handleSubmit}

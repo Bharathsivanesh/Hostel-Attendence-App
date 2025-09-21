@@ -41,7 +41,6 @@ const Viewwarden = () => {
     <ScrollView className="bg-gray-100 flex-1 ">
       <Loader visible={loading} text="Fetching Warden details..." />
 
-      {/* Header */}
       <View
         className="w-full h-12 mb-6 flex-row justify-center items-center rounded-bl-full rounded-br-full"
         style={{ backgroundColor: "#1b5e20" }}
@@ -51,7 +50,6 @@ const Viewwarden = () => {
         </Text>
       </View>
 
-      {/* No Data */}
       {!loading && data.length === 0 && (
         <View className="flex items-center mt-6">
           <Text className="text-lg font-semibold text-gray-500">
@@ -60,7 +58,6 @@ const Viewwarden = () => {
         </View>
       )}
 
-      {/* Data Cards */}
       {data.map((warden, idx) => (
         <View
           key={idx}

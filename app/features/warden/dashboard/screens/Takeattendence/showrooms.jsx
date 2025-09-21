@@ -44,17 +44,21 @@ const Showrooms = () => {
   return (
     <View className="bg-white flex-1">
       <Loader visible={loading} text="Fetching Room I'D..." />
-      <View className="w-full h-12 bg-purple-400 flex-row justify-center items-center rounded-bl-full rounded-br-full">
-        <Text className="text-2xl font-bold text-white text-center w-72 italic">
+
+      {/* Header Bar */}
+      <View className="w-full h-12 bg-[#1b5e20] flex-row justify-center items-center rounded-bl-full rounded-br-full">
+        <Text className="text-2xl font-bold text-[#fbc02d] text-center w-72 italic">
           Rooms
         </Text>
       </View>
+
       <ScrollView className="bg-white px-4 py-6">
-        <Text className="text-lg text-purple-400 font-extrabold mb-6 text-center">
+        <Text className="text-lg text-[#fbc02d] font-extrabold mb-6 text-center">
           {blockName}
         </Text>
+
         {rooms.length == 0 && !loading ? (
-          <Text className="text-center text-purple-500 text-base italic mt-6">
+          <Text className="text-center text-[#1b5e20] text-base italic mt-6">
             No rooms available in this block.
           </Text>
         ) : (
@@ -68,9 +72,9 @@ const Showrooms = () => {
                     blockid: wardeninfo.block_id,
                   })
                 }
-                className="bg-purple-100 w-[48%] border-l-4 border-r-4 border-purple-400 mb-4 p-5 rounded-xl shadow-md"
+                className="bg-[#fbc02d] w-[48%] border-l-4 border-r-4 border-[#1b5e20] mb-4 p-5 rounded-xl shadow-md"
               >
-                <Text className="text-purple-700 font-bold text-lg text-center">
+                <Text className="text-[#1b5e20] font-bold text-lg text-center">
                   {roomid}
                 </Text>
               </TouchableOpacity>
