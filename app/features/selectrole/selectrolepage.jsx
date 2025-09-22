@@ -56,7 +56,7 @@ const Selectrole = () => {
           <Image
             key={index}
             source={img}
-            style={{ width: width, height: 200 }}
+            style={{ width: width, height: 250 }}
             resizeMode="cover"
           />
         ))}
