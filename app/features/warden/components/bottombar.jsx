@@ -1,34 +1,91 @@
-import React from "react";
-import { Button, View, Text } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Addedit from "../dashboard/screens/Addandedit/addedit";
-import Showrooms from "../dashboard/screens/Takeattendence/showrooms";
+import { View, TouchableOpacity, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-const Tab = createBottomTabNavigator();
+const BottomBar = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
 
-// Optional: Custom Tab Bar
-function MyTabBar({ state, descriptors, navigation }) {
+  const isActive = (screen) => route.name === screen;
+
   return (
-    <View style={{ flexDirection: "row" }}>
-      {state.routes.map((route, index) => (
-        <Button
-          key={route.key}
-          title={route.name}
-          onPress={() => navigation.navigate(route.name)}
+    <View className="flex-row justify-around  rounded-tl-3xl rounded-tr-3xl items-center bg-[#1b5e20] h-16">
+      <TouchableOpacity
+        className="flex items-center justify-center"
+        onPress={() => navigation.navigate("Dashboard")}
+      >
+        <Ionicons
+          name="home-outline"
+          size={24}
+          color={isActive("Dashboard") ? "#fbc02d" : "white"}
         />
-      ))}
+        <Text
+          className={`text-xs ${
+            isActive("Dashboard") ? "text-[#fbc02d]" : "text-white"
+          }`}
+        >
+          Home
+        </Text>
+      </TouchableOpacity>
+
+      {/* Attendance */}
+      <TouchableOpacity
+        className="flex items-center justify-center"
+        onPress={() => navigation.navigate("Showrooms")}
+      >
+        <Ionicons
+          name="camera-outline"
+          size={24}
+          color={isActive("Showrooms") ? "#fbc02d" : "white"}
+        />
+        <Text
+          className={`text-xs ${
+            isActive("Showrooms") ? "text-[#fbc02d]" : "text-white"
+          }`}
+        >
+          Attendance
+        </Text>
+      </TouchableOpacity>
+
+      {/* Manage */}
+      <TouchableOpacity
+        className="flex items-center justify-center"
+        onPress={() => navigation.navigate("Addeditdata")}
+      >
+        <Ionicons
+          name="create-outline"
+          size={24}
+          color={isActive("Addeditdata") ? "#fbc02d" : "white"}
+        />
+        <Text
+          className={`text-xs ${
+            isActive("Addeditdata") ? "text-[#fbc02d]" : "text-white"
+          }`}
+        >
+          Manage
+        </Text>
+      </TouchableOpacity>
+
+      {/* Export */}
+      <TouchableOpacity
+        className="flex items-center justify-center"
+        onPress={() => navigation.navigate("Exportexcel")}
+      >
+        <Ionicons
+          name="download-outline"
+          size={24}
+          color={isActive("Exportexcel") ? "#fbc02d" : "white"}
+        />
+        <Text
+          className={`text-xs ${
+            isActive("Exportexcel") ? "text-[#fbc02d]" : "text-white"
+          }`}
+        >
+          Export
+        </Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
-export default function MyTabs() {
-  return (
-    <Tab.Navigator
-      tabBar={(props) => <MyTabBar {...props} />}
-      screenOptions={{ headerShown: false }}
-    >
-      <Tab.Screen name="Attendence" component={Addedit} />
-      <Tab.Screen name="Showrooms" component={Showrooms} />
-    </Tab.Navigator>
-  );
-}
+export default BottomBar;

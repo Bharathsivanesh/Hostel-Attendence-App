@@ -5,14 +5,17 @@ import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { Ionicons } from "@expo/vector-icons";
-import { deletewarden } from "../../../../services/admin/wardencredentials";
+import {
+  deletewarden,
+  fetchupdatewarden,
+} from "../../../../services/admin/wardencredentials";
 import showtoast from "../../../../components/Toastmessage";
 import checknetwork from "../../../../components/checknetwork";
 import Loader from "../../../../components/loader";
-
+import Confirmationdelete from "../../components/confirmationdelete";
 const Admindashboard = () => {
   const navigation = useNavigation();
-
+  const [isvisible, setisvisible] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [wardenId, setWardenId] = useState("");
   const [loading, setloading] = useState(false);
@@ -71,8 +74,49 @@ const Admindashboard = () => {
       showtoast("error", response.message, "Finds an Error🤧", "top");
     }
     setloading(false);
-    setModalVisible(false);
+
+    setisvisible(false);
     setWardenId("");
+  };
+  const [formdata, setformdata] = useState({
+    name: "",
+    joined_date: "",
+    gender: "",
+    hostel_type: "",
+    block_id: "",
+    floor: "",
+    warden_id: "",
+  });
+
+  const handlefetch = async () => {
+    const isConnected = await checknetwork();
+
+    if (!isConnected) {
+      showtoast(
+        "error",
+        "No Internet Connection",
+        "Check your network!",
+        "Top"
+      );
+      setloading(false);
+      return;
+    }
+    if (!wardenId) {
+      showtoast("error", "No Id Entered", "Enter Id Of Warden 🌐", "Top");
+      return;
+    }
+    setloading(true);
+    setWardenId("");
+    const response = await fetchupdatewarden(wardenId);
+    if (response.success) {
+      setformdata(response.data);
+      console.log(response.data);
+      setModalVisible(false);
+      setisvisible(true);
+    } else {
+      showtoast("error", "Invalid", response.message, "top");
+    }
+    setloading(false);
   };
 
   return (
@@ -121,9 +165,15 @@ const Admindashboard = () => {
       <DeleteWardenModal
         visible={isModalVisible}
         onClose={() => setModalVisible(false)}
-        onDelete={handleDelete}
+        onDelete={handlefetch}
         id={wardenId}
         setId={setWardenId}
+      />
+      <Confirmationdelete
+        isvisible={isvisible}
+        onClose={() => setisvisible(false)}
+        onDelete={handleDelete}
+        warden={formdata}
       />
     </View>
   );

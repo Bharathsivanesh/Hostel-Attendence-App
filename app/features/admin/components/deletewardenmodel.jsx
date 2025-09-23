@@ -40,7 +40,7 @@ const DeleteWardenModal = ({ visible, onClose, onDelete, id, setId }) => {
               }}
               onPress={onDelete}
             >
-              <Text className="text-white font-bold">Delete</Text>
+              <Text className="text-white font-bold">View</Text>
             </TouchableOpacity>
 
             <TouchableOpacity

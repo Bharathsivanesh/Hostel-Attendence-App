@@ -8,7 +8,7 @@ const Splash = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       //safer to use timer and return
-      navigation.navigate("Selectrole");
+      navigation.navigate("Admindashboard");
     }, 4000);
     return () => clearTimeout(timer); //before 4 secons i close the app means it stop and return other wise background it runs untill 4 seconds
   }, []);
