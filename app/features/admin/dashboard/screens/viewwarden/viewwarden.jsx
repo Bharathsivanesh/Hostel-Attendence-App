@@ -71,7 +71,11 @@ const Viewwarden = () => {
         >
           <View className="items-center mb-4 flex flex-row justify-around">
             <Image
-              source={require("../../../../../assets/admin/viewwarden/idlogo.png")}
+              source={
+                warden?.profileImage
+                  ? { uri: warden.profileImage }
+                  : require("../../../../../assets/admin/viewwarden/idlogo.png")
+              }
               className="w-16 h-16 rounded-full"
             />
             <Text

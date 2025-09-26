@@ -11,8 +11,53 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { deleteUser } from "firebase/auth";
+import { supabase } from "../../subabase/supabaseClient";
+import * as FileSystem from "expo-file-system";
 
-export const handleAddWarden = async (warden) => {
+export const uploadWardenImage = async (imageFile, wardenId) => {
+  try {
+    // Read file as Base64
+    const base64 = await FileSystem.readAsStringAsync(imageFile.localUri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    // Convert Base64 to Uint8Array for Supabase upload
+    const uint8Array = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+
+    const fileName = `wardens/${wardenId}_${Date.now()}.jpg`;
+
+    // Upload to Supabase
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from("Hostep-attendence") // exact bucket name
+      .upload(fileName, uint8Array, {
+        contentType: "image/jpeg",
+        upsert: false,
+      });
+
+    if (uploadError) {
+      console.error("Supabase upload error:", uploadError);
+      return null;
+    }
+
+    // Get public URL
+    const { data: urlData, error: urlError } = supabase.storage
+      .from("Hostep-attendence")
+      .getPublicUrl(fileName);
+
+    if (urlError) {
+      console.error("Error getting public URL:", urlError);
+      return null;
+    }
+
+    console.log("Upload successful! URL:", urlData?.publicUrl);
+    return urlData.publicUrl;
+  } catch (err) {
+    console.error("Exception during upload:", err);
+    return null;
+  }
+};
+
+export const handleAddWarden = async (warden, imageFile) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -21,7 +66,8 @@ export const handleAddWarden = async (warden) => {
     );
 
     const uid = userCredential.user.uid; //after authencticate for each authticate create a uid using this only we fetch any warden data after authticate
-
+    // Upload image to Supabase and get URL
+    const imageUrl = await uploadWardenImage(imageFile, warden.warden_id);
     await setDoc(doc(db, "wardens", uid), {
       //this setDoc set a auto id as "UID"
       uid: uid,
@@ -33,6 +79,7 @@ export const handleAddWarden = async (warden) => {
       warden_id: warden.warden_id,
       role: "warden",
       Year: warden.Year,
+      profileImage: imageUrl || "",
       // Don't store password here!
     });
 
@@ -95,6 +142,38 @@ export const fetchwarden = async () => {
     return {
       success: false,
       message: error.message || "Something went wrong",
+    };
+  }
+};
+
+export const fetchStudentCount = async (wardeninfo) => {
+  try {
+    const studentsRef = collection(db, "students_list");
+    let q;
+
+    if (wardeninfo.hostel_type === "Boys") {
+      // Boys → same block only
+      q = query(studentsRef, where("blockid", "==", wardeninfo.block_id));
+    } else {
+      // Girls → GB-1 and match year
+      q = query(
+        studentsRef,
+        where("blockid", "==", "GB-1"),
+        where("year", "==", wardeninfo.Year)
+      );
+    }
+
+    const snapshot = await getDocs(q);
+    console.log("..............", snapshot.size);
+    return {
+      success: true,
+      count: snapshot.size, // number of matched students
+    };
+  } catch (error) {
+    console.error("Error fetching students:", error);
+    return {
+      success: false,
+      message: error.message || "Failed to fetch students",
     };
   }
 };

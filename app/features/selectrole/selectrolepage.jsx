@@ -18,12 +18,11 @@ const Selectrole = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    require("../../assets/splash/slider1.jpg"),
-    require("../../assets/splash/slider2.jpg"),
-    require("../../assets/splash/slider3.jpg"),
+    require("../../assets/splash/sliders-1.jpg"),
+    require("../../assets/splash/sliders-2.jpg"),
+    require("../../assets/splash/sliders-3.jpg"),
   ];
 
-  // Auto scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
       const nextIndex = (currentIndex + 1) % images.length;
@@ -35,7 +34,6 @@ const Selectrole = () => {
 
   return (
     <View className="bg-white h-full">
-      {/* Header Bar */}
       <View className="w-full">
         <View className="bg-[#fbc02d] flex items-center justify-center w-full h-16">
           <Text className="italic font-bold text-2xl font-serif text-white">
@@ -44,53 +42,49 @@ const Selectrole = () => {
         </View>
       </View>
 
-      {/* Image Slider */}
-      <ScrollView
-        ref={scrollRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        className="w-full mt-4 h-56"
-      >
-        {images.map((img, index) => (
-          <Image
-            key={index}
-            source={img}
-            style={{ width: width, height: 250 }}
-            resizeMode="cover"
-          />
-        ))}
-      </ScrollView>
+      <View style={{ width: "100%", height: 250 }}>
+        <ScrollView
+          ref={scrollRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+        >
+          {images.map((img, index) => (
+            <Image
+              key={index}
+              source={img}
+              style={{ width: width, height: 250 }}
+              resizeMode="cover"
+            />
+          ))}
+        </ScrollView>
+      </View>
 
-      {/* Role Section */}
-      <View className="flex-1 items-center ">
+      <View className="flex-1 items-center mt-12 ">
         <Text className="font-bold text-2xl font-serif">Select Your Role</Text>
 
         <Text className="mt-8 font-semibold">
           Please choose how you'd like to sign in
         </Text>
-
+          
         <View className="flex-col gap-4 mt-10 w-full px-10">
-          {/* Admin Button */}
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Adminlogin");
             }}
             className="bg-[#1b5e20]  py-3 flex-row w-full flex justify-center rounded-2xl"
           >
-            {/* Icon Left */}
             <MaterialIcons
               name="admin-panel-settings"
               size={24}
               color="white"
             />
-            {/* Text Center */}
+
             <Text className="text-white ml-2 text-center font-bold text-lg">
               Admin
             </Text>
           </TouchableOpacity>
 
-          {/* Warden Button */}
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Wardenlogin");

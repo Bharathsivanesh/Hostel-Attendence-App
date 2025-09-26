@@ -13,6 +13,9 @@ import checknetwork from "../../../../../components/checknetwork";
 import Loader from "../../../../../components/loader";
 import { useState } from "react";
 import { handleAddWarden } from "../../../../../services/admin/wardencredentials";
+import * as ImagePicker from "expo-image-picker";
+import { Image } from "react-native";
+import { fetch } from "@react-native-community/netinfo";
 
 const Addwarden = () => {
   const validationschema = Yup.object().shape({
@@ -29,6 +32,26 @@ const Addwarden = () => {
   });
 
   const [loading, setloading] = useState(false);
+  const [image, setimage] = useState(null);
+
+  const pickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.7,
+      });
+
+      if (!result.canceled) {
+        setimage({
+          localUri: result.assets[0].uri,
+        });
+      }
+    } catch (error) {
+      console.log("Error picking image: ", error);
+      showtoast("error", "Image Pick Failed", error.message, "Top");
+    }
+  };
 
   const handlesubmit = async (values, { resetForm }) => {
     const isConnected = await checknetwork();
@@ -43,7 +66,7 @@ const Addwarden = () => {
       return;
     }
     setloading(true);
-    const response = await handleAddWarden(values);
+    const response = await handleAddWarden(values, image);
 
     if (response.success) {
       showtoast("success", "Sucessfully!", "Sucessfully Added 🥳", "top");
@@ -51,9 +74,18 @@ const Addwarden = () => {
       showtoast("error", response.message, "Finds an Error🤧", "top");
     }
     setloading(false);
+    setimage(null);
     resetForm();
   };
 
+  const blockOptions = {
+    Boys: ["BB-1", "BB-2", "BB-3"],
+    Girls: ["GB-1"],
+  };
+  const yearoptions = {
+    Boys: ["All Year"],
+    Girls: ["1", "2", "3", "4"],
+  };
   const formatDate = (date) => {
     if (!date) return "";
     const d = new Date(date);
@@ -170,12 +202,13 @@ const Addwarden = () => {
                       handleChange("block_id")(itemValue)
                     }
                     onBlur={handleBlur("block_id")}
+                    enabled={!!values.hostel_type}
                   >
                     <Picker.Item label="Select Block ID" value="" />
-                    <Picker.Item label="BB-1" value="BB-1" />
-                    <Picker.Item label="BB-2" value="BB-2" />
-                    <Picker.Item label="BB-3" value="BB-3" />
-                    <Picker.Item label="GB-1" value="GB-1" />
+                    {values.hostel_type &&
+                      blockOptions[values.hostel_type].map((block) => (
+                        <Picker.Item key={block} label={block} value={block} />
+                      ))}
                   </Picker>
                 </View>
                 {touched.block_id && errors.block_id && (
@@ -189,13 +222,13 @@ const Addwarden = () => {
                   <Picker
                     selectedValue={values.Year}
                     onValueChange={handleChange("Year")}
+                    enabled={!!values.hostel_type}
                   >
                     <Picker.Item label="Select Year" value="" />
-                    <Picker.Item label="1st" value="1" />
-                    <Picker.Item label="2nd" value="2" />
-                    <Picker.Item label="3rd" value="3" />
-                    <Picker.Item label="4th" value="4" />
-                    <Picker.Item label="All Year" value="All Year" />
+                    {values.hostel_type &&
+                      yearoptions[values.hostel_type].map((block) => (
+                        <Picker.Item key={block} label={block} value={block} />
+                      ))}
                   </Picker>
                 </View>
                 {touched.Year && errors.Year && (
@@ -233,6 +266,30 @@ const Addwarden = () => {
                 />
                 {touched.password && errors.password && (
                   <Text className="text-red-500">{errors.password}</Text>
+                )}
+              </View>
+
+              <View>
+                <Text className="text-[#1B5E20] font-bold italic">
+                  Profile Image
+                </Text>
+
+                <TouchableOpacity
+                  onPress={pickImage}
+                  className="border border-[#FBC02D] rounded-xl p-3 mt-2 bg-[#f5f5f5]"
+                >
+                  <Text className="text-center text-[#1B5E20]">
+                    Upload Image
+                  </Text>
+                </TouchableOpacity>
+
+                {image && (
+                  <View className="mt-3 items-center">
+                    <Image
+                      source={{ uri: image.localUri }}
+                      style={{ width: 120, height: 120, borderRadius: 60 }}
+                    />
+                  </View>
                 )}
               </View>
 

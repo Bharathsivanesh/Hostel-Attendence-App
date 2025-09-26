@@ -91,7 +91,7 @@ const Studentfrom = ({ setloading }) => {
             <View>
               <Text className="text-[#1b5e20] font-bold italic">Room ID</Text>
               <TextInput
-                className="border border-purple-400 rounded-xl p-3"
+                className="border border-[#fbc02d] rounded-xl p-3"
                 placeholder="Enter Room ID"
                 onChangeText={handleChange("roomid")} //this roomid sholud match with initialvalues
                 onBlur={handleBlur("roomid")}
