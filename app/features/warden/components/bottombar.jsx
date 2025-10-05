@@ -84,6 +84,23 @@ const BottomBar = () => {
           Export
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        className="flex items-center justify-center"
+        onPress={() => navigation.navigate("Wardenprofile")}
+      >
+        <Ionicons
+          name="person-circle-outline"
+          size={24}
+          color={isActive("Wardenprofile") ? "#fbc02d" : "white"}
+        />
+        <Text
+          className={`text-xs ${
+            isActive("Wardenprofile") ? "text-[#fbc02d]" : "text-white"
+          }`}
+        >
+          Profile
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

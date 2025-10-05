@@ -39,7 +39,7 @@ const Confirmationdelete = ({ warden, onDelete, isvisible, onClose }) => {
                 className="absolute top-2 right-0 "
                 onPress={onClose}
               >
-                <Ionicons name="close-circle" size={28} color="#fbc02d" />
+                <Ionicons name="close-circle" size={28} color="#d32f2f" />
               </TouchableOpacity>
             </View>
 
@@ -55,21 +55,25 @@ const Confirmationdelete = ({ warden, onDelete, isvisible, onClose }) => {
             <Text className="text-base text-gray-700 mt-1">
               Block ID: {warden.block_id}
             </Text>
-            <Text className="text-base text-gray-700 mt-1">
+            <Text className="text-base text-gray-700 mt-1 " numberOfLines={1}>
+              Warden Phone: {warden.phone}
+            </Text>
+            <Text className="text-base  text-gray-700 mt-1">
               Hostel Type: {warden.hostel_type}
             </Text>
             <Text className="text-base text-gray-700 mt-1">
               Warden Year: {warden.Year}
             </Text>
+
             <Text className="text-base  mt-1">
               Warden ID: {warden.warden_id}
             </Text>
             <TouchableOpacity onPress={onDelete} className="mt-4">
               <View
                 className="rounded-lg p-3 items-center"
-                style={{ backgroundColor: "#1b5e20" }}
+                style={{ backgroundColor: "#d32f2f" }}
               >
-                <Text className="text-[#fbc02d] font-bold text-lg">
+                <Text className="text-white font-bold text-lg">
                   Confirm Delete
                 </Text>
               </View>

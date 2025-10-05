@@ -11,7 +11,10 @@ import {
   addattendence,
 } from "../../../../../services/attendence/attendence";
 import { Linking } from "react-native";
-import { capitalizeText } from "../../../../../utils/capitalize";
+import {
+  capitalizeText,
+  firstlettercapitalize,
+} from "../../../../../utils/capitalize";
 const TakeAttendence = () => {
   const { wardeninfo } = useContext(Wardencontext); //context api
   const route = useRoute(); //while navigating iam passed props
@@ -169,7 +172,7 @@ const TakeAttendence = () => {
                   {/* Student Info */}
                   <View className="flex flex-row justify-between w-full p-2">
                     <Text className="text-[#1b5e20] font-black text-lg">
-                      {capitalizeText(data.name)}
+                      {firstlettercapitalize(data.name)}
                     </Text>
                     <Text className="text-[#1b5e20] font-black text-lg">
                       {capitalizeText(data.dept)}

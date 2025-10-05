@@ -30,6 +30,9 @@ const Editwarden = () => {
     hostel_type: Yup.string().required("Hostel Type is required"),
     block_id: Yup.string().required("Block ID is required"),
     warden_id: Yup.string().required("Warden ID is required"),
+    phone: Yup.string()
+      .matches(/^\d{10}$/, "Enter 10 digits")
+      .required("Student number required"),
   });
 
   const [id, setid] = useState("");
@@ -44,6 +47,7 @@ const Editwarden = () => {
     block_id: "",
     floor: "",
     warden_id: "",
+    phone: "",
   });
   const [visisble, setvisible] = useState(false);
   const handlefetch = async () => {
@@ -112,14 +116,12 @@ const Editwarden = () => {
     <ScrollView>
       <Loader visible={loading} text={loadertext} />
       <View className="bg-white h-screen  flex-1">
-      
         <View className="w-full h-12 bg-[#1b5e20] flex-row justify-center items-center rounded-bl-full rounded-br-full">
           <Text className="text-2xl font-bold text-[#FBC02D] italic">
             Edit Warden
           </Text>
         </View>
 
-       
         {!visisble && (
           <View className="flex flex-col w-full items-center justify-center gap-4 mt-8">
             <Text className="text-[#1b5e20] text-center w-full text-xl font-bold italic">
@@ -209,6 +211,22 @@ const Editwarden = () => {
                   </View>
                   {touched.gender && errors.gender && (
                     <Text className="text-red-500">{errors.gender}</Text>
+                  )}
+                </View>
+                <View>
+                  <Text className="text-[#1b5e20] font-bold italic mb-1">
+                    Warden No
+                  </Text>
+                  <TextInput
+                    className="border border-[#fbc02d] rounded-xl p-3"
+                    placeholder="Enter Number"
+                    keyboardType="phone-pad"
+                    onChangeText={handleChange("phone")}
+                    onBlur={handleBlur("phone")}
+                    value={values.phone}
+                  />
+                  {touched.phone && errors.phone && (
+                    <Text className="text-red-500">{errors.phone}</Text>
                   )}
                 </View>
 

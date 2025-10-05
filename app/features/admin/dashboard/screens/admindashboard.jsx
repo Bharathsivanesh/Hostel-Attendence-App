@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DeleteWardenModal from "../../components/deletewardenmodel"; // Adjust path if needed
+import DeleteWardenModal from "../../../../components/deletewardenmodel"; // Adjust path if needed
 import { useNavigation } from "expo-router";
 import { Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
@@ -168,6 +168,7 @@ const Admindashboard = () => {
         onDelete={handlefetch}
         id={wardenId}
         setId={setWardenId}
+        role="Warden"
       />
       <Confirmationdelete
         isvisible={isvisible}

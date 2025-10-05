@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
 
-const DeleteWardenModal = ({ visible, onClose, onDelete, id, setId }) => {
+const DeleteWardenModal = ({ visible, onClose, role, onDelete, id, setId }) => {
   return (
     <Modal
       transparent
@@ -13,18 +13,18 @@ const DeleteWardenModal = ({ visible, onClose, onDelete, id, setId }) => {
         <View className="bg-white flex flex-col gap-2 w-4/5 p-6 px-3 rounded-xl">
           {/* Title */}
           <Text className="text-xl font-bold mb-4" style={{ color: "#1b5e20" }}>
-            Delete Warden
+            {`Delete ${role}`}
           </Text>
 
           {/* Input field */}
-          <Text className="text-gray-700">Enter Warden ID:</Text>
+          <Text className="text-gray-700">  {`Enter ${role} ID:`}</Text>
           <TextInput
             className="p-2 rounded mt-2 mb-4"
             style={{
               borderWidth: 1,
               borderColor: "#fbc02d",
             }}
-            placeholder="Warden ID"
+            placeholder=  {`${role} ID`}
             value={id}
             onChangeText={setId}
           />

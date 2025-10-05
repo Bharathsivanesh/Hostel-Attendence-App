@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -28,6 +28,9 @@ const Dashboard = () => {
       }
     }, [wardeninfo])
   );
+  useEffect(()=>{
+ console.log("the data",wardeninfo)
+  },[])
 
   return (
     <>

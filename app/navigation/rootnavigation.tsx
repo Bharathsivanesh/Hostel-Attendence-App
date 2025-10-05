@@ -12,10 +12,10 @@ import Editdetails from "../features/warden/dashboard/screens/Addandedit/editdet
 import Addwarden from "../features/admin/dashboard/screens/addwarden/addwarden";
 import Editwarden from "../features/admin/dashboard/screens/editwarden/editwarden";
 import Viewwarden from "../features/admin/dashboard/screens/viewwarden/viewwarden";
-
+import Wardenprofile from "../features/warden/dashboard/screens/Wardenprofile/Wardenprofile";
 import Showrooms from "../features/warden/dashboard/screens/Takeattendence/showrooms";
 import TakeAttendence from "../features/warden/dashboard/screens/Takeattendence/takeattendence";
-import {WardenProvider} from "../context/wardencontext"
+import { WardenProvider } from "../context/wardencontext";
 
 const Stack = createNativeStackNavigator();
 const Mystack = () => {
@@ -34,7 +34,7 @@ const Mystack = () => {
       <Stack.Screen
         name="Wardenlogin"
         options={{ headerShown: false }}
-         component={Wardenlogin}
+        component={Wardenlogin}
       />
       <Stack.Screen
         name="Adminlogin"
@@ -86,18 +86,23 @@ const Mystack = () => {
         component={Viewwarden}
         options={{ headerShown: false }}
       />
-      
 
       <Stack.Screen
         name="Showrooms"
-         component={Showrooms}
-        options={{ headerShown: false }}/>
+        component={Showrooms}
+        options={{ headerShown: false }}
+      />
 
       <Stack.Screen
         name="TakeAttendence"
-         component={TakeAttendence}
-        options={{ headerShown: false }}/>
-
+        component={TakeAttendence}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Wardenprofile"
+        component={Wardenprofile}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };

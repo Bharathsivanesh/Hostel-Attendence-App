@@ -104,6 +104,9 @@ const Viewwarden = () => {
           <Text className="text-base text-gray-700 mt-1">
             Warden Year: {warden.Year}
           </Text>
+          <Text className="text-base text-gray-700 mt-1">
+            Warden phone: {warden.phone ? warden.phone : "Not yet Entered"}
+          </Text>
           <Text
             className="text-base font-semibold mt-1"
             style={{ color: "#fbc02d" }}

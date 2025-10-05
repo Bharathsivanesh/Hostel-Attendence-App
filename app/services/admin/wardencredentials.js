@@ -79,6 +79,7 @@ export const handleAddWarden = async (warden, imageFile) => {
       warden_id: warden.warden_id,
       role: "warden",
       Year: warden.Year,
+      phone: warden.phone,
       profileImage: imageUrl || "",
       // Don't store password here!
     });
@@ -178,6 +179,7 @@ export const fetchStudentCount = async (wardeninfo) => {
   }
 };
 
+
 export const fetchupdatewarden = async (id) => {
   try {
     const wardenRef = collection(db, "wardens");
@@ -203,16 +205,25 @@ export const fetchupdatewarden = async (id) => {
   }
 };
 
-export const updatewarden = async (id, formdata) => {
+
+export const updatewarden = async (id, formdata,isimageadd=false) => {
   try {
+    if(isimageadd)// this is from warden profile(page) image upload (only image update)
+    {
+      
+      const imageUrl = await uploadWardenImage(formdata,id);
+     
+      formdata={
+        profileImage:imageUrl
+      }
+    }
     const wardenRef = collection(db, "wardens");
     const q = query(wardenRef, where("warden_id", "==", id));
     const querySnapshot = await getDocs(q);
-
     if (querySnapshot.empty) {
       return { success: false, message: "No warden found with this ID" };
     }
-
+     console.log("enterd-------------2");
     const wardenDoc = querySnapshot.docs[0];
     await updateDoc(wardenDoc.ref, formdata);
     return {

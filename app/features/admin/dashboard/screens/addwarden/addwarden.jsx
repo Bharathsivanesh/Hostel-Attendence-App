@@ -29,6 +29,9 @@ const Addwarden = () => {
     Year: Yup.string().required("Year is required"),
     warden_id: Yup.string().required("Warden ID is required"),
     password: Yup.string().required("Password is required"),
+    phone: Yup.string()
+      .matches(/^\d{10}$/, "Enter 10 digits")
+      .required("Student number required"),
   });
 
   const [loading, setloading] = useState(false);
@@ -115,6 +118,7 @@ const Addwarden = () => {
             Year: "",
             warden_id: "",
             password: "",
+            phone: "",
           }}
           validationSchema={validationschema}
           onSubmit={handlesubmit}
@@ -266,6 +270,22 @@ const Addwarden = () => {
                 />
                 {touched.password && errors.password && (
                   <Text className="text-red-500">{errors.password}</Text>
+                )}
+              </View>
+              <View>
+                <Text className="text-[#1b5e20] font-bold italic mb-1">
+                  Warden No
+                </Text>
+                <TextInput
+                  className="border border-[#fbc02d] rounded-xl p-3"
+                  placeholder="Enter Number"
+                  keyboardType="phone-pad"
+                  onChangeText={handleChange("phone")}
+                  onBlur={handleBlur("phone")}
+                  value={values.phone}
+                />
+                {touched.phone && errors.phone && (
+                  <Text className="text-red-500">{errors.phone}</Text>
                 )}
               </View>
 

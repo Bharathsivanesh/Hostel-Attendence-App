@@ -10,7 +10,7 @@ import showtoast from "../../../../../components/Toastmessage";
 import checknetwork from "../../../../../components/checknetwork";
 import Loader from "../../../../../components/loader";
 import { Dimensions } from "react-native";
-
+import ConfirmationDeleteStudent from "../../../components/Confirmationdelete";
 import {
   deletestudent,
   fetchstudent,
@@ -47,6 +47,7 @@ const Editdetails = ({ route }) => {
   const [loading, setloading] = useState(false);
   const [internet, setinternet] = useState(true);
   const [loadertext, setloadertext] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const [formdata, setformdata] = useState({
     roomid: "",
@@ -97,6 +98,7 @@ const Editdetails = ({ route }) => {
 
     if (response.success) {
       showtoast("success", "Sucessfully!", "Sucessfully deleted 🥳", "top");
+       setShowDeleteModal(false);
     } else {
       showtoast("error", response.message, "Finds an Error🤧", "top");
     }
@@ -104,7 +106,7 @@ const Editdetails = ({ route }) => {
     setid("");
   };
 
-  const handlefetch = async () => {
+  const handlefetch = async (isdelete = false) => {
     setloadertext("Fetching details...");
     if (!id) {
       showtoast(
@@ -131,7 +133,12 @@ const Editdetails = ({ route }) => {
     if (response.success) {
       setformdata(response.data);
       console.log(response.data);
-      setvisible(true);
+     
+      if (isdelete) {
+        setShowDeleteModal(true);
+      } else {
+        setvisible(true);
+      }
     } else {
       showtoast("error", "Invalid", response.message, "top");
     }
@@ -203,7 +210,7 @@ const Editdetails = ({ route }) => {
                   }}
                 />
                 <View className="flex flex-row  space-x-12 ">
-                  <TouchableOpacity onPress={handlefetch}>
+                  <TouchableOpacity onPress={()=>handlefetch(false)}>
                     <View className="flex-row items-center">
                       <Ionicons
                         name="create-outline"
@@ -214,7 +221,11 @@ const Editdetails = ({ route }) => {
                     </View>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={handledelete}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      handlefetch(true);
+                    }}
+                  >
                     <View className="flex-row items-center">
                       <Ionicons
                         name="trash-outline"
@@ -238,7 +249,7 @@ const Editdetails = ({ route }) => {
                     onSubmit={(values) => {
                       console.log("correct", values);
                       handleupdate(values); //latest update form formik
-                    }} // 
+                    }} //
                     //this will be tregear by handleSubmit automaticlay after clicking submit btn
                   >
                     {({
@@ -358,11 +369,18 @@ const Editdetails = ({ route }) => {
                               selectedValue={values.dept}
                               onValueChange={handleChange("dept")}
                             >
-                              <Picker.Item label="select Department" value="" />
+                              <Picker.Item label="Select Department" value="" />
                               <Picker.Item label="CSE" value="CSE" />
                               <Picker.Item label="ECE" value="ECE" />
                               <Picker.Item label="EEE" value="EEE" />
                               <Picker.Item label="IT" value="IT" />
+                              <Picker.Item label="MECH" value="MECH" />
+                              <Picker.Item label="CIVIL" value="CIVIL" />
+                              <Picker.Item label="BIO" value="BIO" />
+                              <Picker.Item label="AGRI" value="AGRI" />
+                              <Picker.Item label="AIML" value="AIML" />
+                              <Picker.Item label="AIDS" value="AIDS" />
+                              <Picker.Item label="CYBER" value="CYBER" />
                             </Picker>
                           </View>
 
@@ -445,6 +463,14 @@ const Editdetails = ({ route }) => {
             )}
           </View>
         </View>
+        <ConfirmationDeleteStudent
+          isVisible={showDeleteModal}
+          onClose={() => {setShowDeleteModal(false)
+            setid("")
+          }}
+          onDelete={handledelete}
+          student={formdata}
+        />
       </ScrollView>
     </>
   );

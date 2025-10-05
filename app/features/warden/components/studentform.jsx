@@ -180,16 +180,23 @@ const Studentfrom = ({ setloading }) => {
               <Text className="text-[#1b5e20] font-bold italic mb-1">
                 Department
               </Text>
-              <View className="border border-[#fbc02d] rounded-xl">
+              <View className="border  border-[#fbc02d] rounded-xl ">
                 <Picker
                   selectedValue={values.dept}
                   onValueChange={handleChange("dept")}
                 >
-                  <Picker.Item label="select Department" value="" />
+                  <Picker.Item label="Select Department" value="" />
                   <Picker.Item label="CSE" value="CSE" />
                   <Picker.Item label="ECE" value="ECE" />
                   <Picker.Item label="EEE" value="EEE" />
                   <Picker.Item label="IT" value="IT" />
+                  <Picker.Item label="MECH" value="MECH" />
+                  <Picker.Item label="CIVIL" value="CIVIL" />
+                  <Picker.Item label="BIO" value="BIO" />
+                  <Picker.Item label="AGRI" value="AGRI" />
+                  <Picker.Item label="AIML" value="AIML" />
+                  <Picker.Item label="AIDS" value="AIDS" />
+                  <Picker.Item label="CYBER" value="CYBER" />
                 </Picker>
               </View>
 
