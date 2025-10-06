@@ -18,6 +18,7 @@ import {
   updatewarden,
 } from "../../../../../services/admin/wardencredentials";
 import { useState } from "react";
+import CommonModal from "@/app/components/Confirmationactionmodal";
 
 const Editwarden = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -30,11 +31,20 @@ const Editwarden = () => {
     hostel_type: Yup.string().required("Hostel Type is required"),
     block_id: Yup.string().required("Block ID is required"),
     warden_id: Yup.string().required("Warden ID is required"),
+    Year: Yup.string().required("Warden Year is required"),
     phone: Yup.string()
       .matches(/^\d{10}$/, "Enter 10 digits")
       .required("Student number required"),
   });
+  const blockOptions = {
+    Boys: ["BB-1", "BB-2", "BB-3"],
+    Girls: ["GB-1"],
+  };
 
+  const yearoptions = {
+    Boys: ["All Year"],
+    Girls: ["1", "2", "3", "4"],
+  };
   const [id, setid] = useState("");
   const [loading, setloading] = useState(false);
   const [internet, setinternet] = useState(true);
@@ -48,6 +58,7 @@ const Editwarden = () => {
     floor: "",
     warden_id: "",
     phone: "",
+    Year: "",
   });
   const [visisble, setvisible] = useState(false);
   const handlefetch = async () => {
@@ -79,7 +90,7 @@ const Editwarden = () => {
     }
     setloading(false);
   };
-
+  const [modalVisible, setModalVisible] = useState(false);
   const handleupdate = async (values) => {
     if (!internet) {
       showtoast(
@@ -103,6 +114,7 @@ const Editwarden = () => {
     const response = await updatewarden(id, values);
     if (response.success) {
       showtoast("success", "Sucessfully Updated", response.message, "top");
+      setModalVisible(false);
     } else {
       showtoast("error", "Invalid", response.message, "top");
     }
@@ -113,7 +125,7 @@ const Editwarden = () => {
   };
 
   return (
-    <ScrollView>
+    <>
       <Loader visible={loading} text={loadertext} />
       <View className="bg-white h-screen  flex-1">
         <View className="w-full h-12 bg-[#1b5e20] flex-row justify-center items-center rounded-bl-full rounded-br-full">
@@ -150,145 +162,193 @@ const Editwarden = () => {
             </View>
           </View>
         )}
+        <ScrollView>
+          {visisble && (
+            <Formik
+              initialValues={formdata}
+              enableReinitialize={true}
+              validationSchema={validationschema}
+              onSubmit={(values) => {
+                console.log("correct", values);
+                handleupdate(values);
+              }}
+            >
+              {({
+                handleChange,
+                handleSubmit,
+                handleBlur,
+                values,
+                errors,
+                touched,
+              }) => (
+                <>
+                  <View className="space-y-4 h-screen  bg-white px-3 mt-12">
+                    <View>
+                      <Text className="text-[#1b5e20] font-bold italic">
+                        Name
+                      </Text>
+                      <TextInput
+                        className="border border-[#fbc02d] rounded-xl p-3"
+                        placeholder="Enter Name"
+                        onChangeText={handleChange("name")}
+                        onBlur={handleBlur("name")}
+                        value={values.name}
+                      />
+                      {touched.name && errors.name && (
+                        <Text className="text-red-500">{errors.name}</Text>
+                      )}
+                    </View>
 
-        {visisble && (
-          <Formik
-            initialValues={formdata}
-            enableReinitialize={true}
-            validationSchema={validationschema}
-            onSubmit={(values) => {
-              console.log("correct", values);
-              handleupdate(values);
-            }}
-          >
-            {({
-              handleChange,
-              handleSubmit,
-              handleBlur,
-              values,
-              errors,
-              touched,
-            }) => (
-              <View className="space-y-4 h-screen  bg-white px-3 mt-12">
-                <View>
-                  <Text className="text-[#1b5e20] font-bold italic">Name</Text>
-                  <TextInput
-                    className="border border-[#fbc02d] rounded-xl p-3"
-                    placeholder="Enter Name"
-                    onChangeText={handleChange("name")}
-                    onBlur={handleBlur("name")}
-                    value={values.name}
-                  />
-                  {touched.name && errors.name && (
-                    <Text className="text-red-500">{errors.name}</Text>
-                  )}
-                </View>
+                    <View>
+                      <Text className="text-[#1b5e20] font-bold italic">
+                        Joined Date
+                      </Text>
+                      <TextInput
+                        className="border border-[#fbc02d] rounded-xl p-3"
+                        editable={false}
+                        value={values.joined_date}
+                      />
+                    </View>
 
-                <View>
-                  <Text className="text-[#1b5e20] font-bold italic">
-                    Joined Date
-                  </Text>
-                  <TextInput
-                    className="border border-[#fbc02d] rounded-xl p-3"
-                    editable={false}
-                    value={values.joined_date}
-                  />
-                </View>
+                    <View>
+                      <Text className="text-[#1b5e20] font-bold italic">
+                        Gender
+                      </Text>
+                      <View className="border border-[#fbc02d] rounded-xl">
+                        <Picker
+                          selectedValue={values.gender}
+                          onValueChange={handleChange("gender")}
+                        >
+                          <Picker.Item label="Select Gender" value="" />
+                          <Picker.Item label="Male" value="Male" />
+                          <Picker.Item label="Female" value="Female" />
+                        </Picker>
+                      </View>
+                      {touched.gender && errors.gender && (
+                        <Text className="text-red-500">{errors.gender}</Text>
+                      )}
+                    </View>
+                    <View>
+                      <Text className="text-[#1b5e20] font-bold italic mb-1">
+                        Warden No
+                      </Text>
+                      <TextInput
+                        className="border border-[#fbc02d] rounded-xl p-3"
+                        placeholder="Enter Number"
+                        keyboardType="phone-pad"
+                        onChangeText={handleChange("phone")}
+                        onBlur={handleBlur("phone")}
+                        value={values.phone}
+                      />
+                      {touched.phone && errors.phone && (
+                        <Text className="text-red-500">{errors.phone}</Text>
+                      )}
+                    </View>
 
-                <View>
-                  <Text className="text-[#1b5e20] font-bold italic">
-                    Gender
-                  </Text>
-                  <View className="border border-[#fbc02d] rounded-xl">
-                    <Picker
-                      selectedValue={values.gender}
-                      onValueChange={handleChange("gender")}
-                    >
-                      <Picker.Item label="Select Gender" value="" />
-                      <Picker.Item label="Male" value="Male" />
-                      <Picker.Item label="Female" value="Female" />
-                    </Picker>
+                    <View>
+                      <Text className="text-[#1b5e20] font-bold italic">
+                        Hostel Type
+                      </Text>
+                      <View className="border border-[#fbc02d] rounded-xl">
+                        <Picker
+                          selectedValue={values.hostel_type}
+                          onValueChange={(itemValue) => {
+                            handleChange("hostel_type")(itemValue);
+                            // Reset dependent fields when hostel type changes
+                            handleChange("block_id")("");
+                            handleChange("Year")("");
+                          }}
+                        >
+                          <Picker.Item label="Select Hostel Type" value="" />
+                          <Picker.Item label="Boys" value="Boys" />
+                          <Picker.Item label="Girls" value="Girls" />
+                        </Picker>
+                      </View>
+                      {touched.hostel_type && errors.hostel_type && (
+                        <Text className="text-red-500">
+                          {errors.hostel_type}
+                        </Text>
+                      )}
+                    </View>
+
+                    <View>
+                      <Text className="text-[#1b5e20] font-bold italic">
+                        Block ID
+                      </Text>
+                      <View className="border border-[#fbc02d] rounded-xl">
+                        <Picker
+                          selectedValue={values.block_id}
+                          onValueChange={(itemValue) =>
+                            handleChange("block_id")(itemValue)
+                          }
+                          onBlur={handleBlur("block_id")}
+                          enabled={!!values.hostel_type} // Disable until hostel type is selected
+                        >
+                          <Picker.Item label="Select Block ID" value="" />
+                          {values.hostel_type &&
+                            blockOptions[values.hostel_type].map((block) => (
+                              <Picker.Item
+                                key={block}
+                                label={block}
+                                value={block}
+                              />
+                            ))}
+                        </Picker>
+                      </View>
+                      {touched.block_id && errors.block_id && (
+                        <Text className="text-red-500">{errors.block_id}</Text>
+                      )}
+                    </View>
+                    <View>
+                      <Text className="text-[#1b5e20] font-bold italic">
+                        Year
+                      </Text>
+                      <View className="border border-[#fbc02d] rounded-xl">
+                        <Picker
+                          selectedValue={values.Year}
+                          onValueChange={handleChange("Year")}
+                          enabled={!!values.hostel_type}
+                        >
+                          <Picker.Item label="Select Year" value="" />
+                          {values.hostel_type &&
+                            yearoptions[values.hostel_type].map((year) => (
+                              <Picker.Item
+                                key={year}
+                                label={year}
+                                value={year}
+                              />
+                            ))}
+                        </Picker>
+                      </View>
+                      {touched.Year && errors.Year && (
+                        <Text className="text-red-500">{errors.Year}</Text>
+                      )}
+                    </View>
+
+                    <View className="flex items-center justify-center mb-4">
+                      <TouchableOpacity
+                        onPress={() => setModalVisible(true)}
+                        className="w-1/2 h-10 mt-6 rounded-md bg-[#1b5e20] flex items-center justify-center"
+                      >
+                        <Text className="text-[#FBC02D] text-lg font-semibold">
+                          Submit
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                  {touched.gender && errors.gender && (
-                    <Text className="text-red-500">{errors.gender}</Text>
-                  )}
-                </View>
-                <View>
-                  <Text className="text-[#1b5e20] font-bold italic mb-1">
-                    Warden No
-                  </Text>
-                  <TextInput
-                    className="border border-[#fbc02d] rounded-xl p-3"
-                    placeholder="Enter Number"
-                    keyboardType="phone-pad"
-                    onChangeText={handleChange("phone")}
-                    onBlur={handleBlur("phone")}
-                    value={values.phone}
+                  <CommonModal
+                    visible={modalVisible}
+                    onClose={() => setModalVisible(false)}
+                    onConfirm={handleSubmit}
+                    message="Are you sure you want to submit this student's details?"
                   />
-                  {touched.phone && errors.phone && (
-                    <Text className="text-red-500">{errors.phone}</Text>
-                  )}
-                </View>
-
-                <View>
-                  <Text className="text-[#1b5e20] font-bold italic">
-                    Hostel Type
-                  </Text>
-                  <View className="border border-[#fbc02d] rounded-xl">
-                    <Picker
-                      selectedValue={values.hostel_type}
-                      onValueChange={handleChange("hostel_type")}
-                    >
-                      <Picker.Item label="Select Hostel Type" value="" />
-                      <Picker.Item label="Boys" value="Boys" />
-                      <Picker.Item label="Girls" value="Girls" />
-                    </Picker>
-                  </View>
-                  {touched.hostel_type && errors.hostel_type && (
-                    <Text className="text-red-500">{errors.hostel_type}</Text>
-                  )}
-                </View>
-
-                <View>
-                  <Text className="text-[#1b5e20] font-bold italic">
-                    Block ID
-                  </Text>
-                  <View className="border border-[#fbc02d] rounded-xl">
-                    <Picker
-                      selectedValue={values.block_id}
-                      onValueChange={(itemValue) => {
-                        handleChange("block_id")(itemValue);
-                      }}
-                      onBlur={handleBlur("block_id")}
-                    >
-                      <Picker.Item label="Select Block ID" value="" />
-                      <Picker.Item label="BB-1" value="BB-1" />
-                      <Picker.Item label="BB-2" value="BB-2" />
-                      <Picker.Item label="BB-3" value="BB-3" />
-                      <Picker.Item label="GB-1" value="GB-1" />
-                    </Picker>
-                  </View>
-                  {touched.block_id && errors.block_id && (
-                    <Text className="text-red-500">{errors.block_id}</Text>
-                  )}
-                </View>
-
-                <View className="flex items-center justify-center mb-4">
-                  <TouchableOpacity
-                    onPress={handleSubmit}
-                    className="w-1/2 h-10 mt-6 rounded-md bg-[#1b5e20] flex items-center justify-center"
-                  >
-                    <Text className="text-[#FBC02D] text-lg font-semibold">
-                      Submit
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
-          </Formik>
-        )}
+                </>
+              )}
+            </Formik>
+          )}
+        </ScrollView>
       </View>
-    </ScrollView>
+    </>
   );
 };
 

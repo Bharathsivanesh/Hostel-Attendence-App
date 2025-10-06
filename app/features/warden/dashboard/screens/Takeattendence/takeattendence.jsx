@@ -188,7 +188,7 @@ const TakeAttendence = () => {
                       }
                     >
                       <Image
-                        source={require("../../../../../assets/attendence/WhatsApp.png")}
+                        source={require("../../../../../assets/attendence/whatsapp1.png")}
                         className="h-8 w-8"
                       />
                     </TouchableOpacity>

@@ -28,40 +28,42 @@ const Dashboard = () => {
       }
     }, [wardeninfo])
   );
-  useEffect(()=>{
- console.log("the data",wardeninfo)
-  },[])
+  useEffect(() => {
+    console.log("the data", wardeninfo);
+  }, []);
 
   return (
     <>
       <Layout>
-        <ScrollView className="flex-1 bg-white ">
-          <View className="flex-row bg-[#1b5e20] h-16 px-8 rounded-br-3xl rounded-bl-3xl items-center mb-6 justify-between">
-            <View className="flex-row justify-center items-center gap-3">
-              <Image
-                source={
-                  wardeninfo?.profileImage
-                    ? { uri: wardeninfo.profileImage }
-                    : require("../../../../assets/admin/viewwarden/idlogo.png")
-                }
-                style={{ width: 50, height: 50, borderRadius: 25 }}
-              />
-              <View>
-                <Text className="font-bold  text-xl  text-[#fbc02d]">
-                  {wardeninfo?.name}
-                </Text>
-                <Text className="text-[#fbc02d] text-sm">College Warden</Text>
-              </View>
+        <View
+      
+          className="flex-row   bg-[#1b5e20] h-16 px-8 rounded-br-3xl rounded-bl-3xl items-center mb-6 justify-between"
+        >
+          <View className="flex-row justify-center items-center gap-3">
+            <Image
+              source={
+                wardeninfo?.profileImage
+                  ? { uri: wardeninfo.profileImage }
+                  : require("../../../../assets/admin/viewwarden/idlogo.png")
+              }
+              style={{ width: 50, height: 50, borderRadius: 25 }}
+            />
+            <View>
+              <Text className="font-bold  text-xl  text-[#fbc02d]">
+                {wardeninfo?.name}
+              </Text>
+              <Text className="text-[#fbc02d] text-sm">College Warden</Text>
             </View>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Selectrole");
-              }}
-            >
-              <Ionicons name="log-out-outline" size={24} color="#fbc02d" />
-            </TouchableOpacity>
           </View>
-
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Selectrole");
+            }}
+          >
+            <Ionicons name="log-out-outline" size={24} color="#fbc02d" />
+          </TouchableOpacity>
+        </View>
+        <ScrollView className="flex-1 bg-white ">
           <Text className="text-2xl text-center font-bold mb-4 text-[#1b5e20]">
             Warden Dashboard
           </Text>
