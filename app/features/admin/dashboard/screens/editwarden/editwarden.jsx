@@ -141,13 +141,8 @@ const Editwarden = () => {
             </Text>
             <TextInput
               onChangeText={setid}
-              style={{
-                width: Math.min(screenWidth * 0.9, 208),
-                borderColor: "#1b5e20",
-                borderWidth: 1,
-                borderRadius: 8,
-                paddingHorizontal: 10,
-              }}
+              className="w-2/3 border-2 border-[#1b5e20] rounded-lg p-2 text-[#1b5e20]"                                                   
+              placeholder="Enter Warden ID"
             />
             <View className="flex flex-row space-x-12">
               <TouchableOpacity
@@ -340,7 +335,7 @@ const Editwarden = () => {
                     visible={modalVisible}
                     onClose={() => setModalVisible(false)}
                     onConfirm={handleSubmit}
-                    message="Are you sure you want to submit this student's details?"
+                    message="Are you sure you want to submit this Edited Warden details?"
                   />
                 </>
               )}

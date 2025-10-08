@@ -217,13 +217,7 @@ const Editdetails = ({ route }) => {
                 <TextInput
                   onChangeText={setid}
                   value={id}
-                  style={{
-                    width: Math.min(screenWidth * 0.9, 208),
-                    borderColor: "#fbc02d",
-                    borderWidth: 1,
-                    borderRadius: 8,
-                    paddingHorizontal: 10,
-                  }}
+                  className="w-2/3 border-2  border-[#fbc02d] rounded-lg p-2 text-[#1b5e20]"
                 />
                 <View className="flex flex-row  space-x-12 ">
                   <TouchableOpacity onPress={() => handlefetch(false)}>

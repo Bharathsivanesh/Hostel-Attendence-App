@@ -21,3 +21,8 @@ module.exports = function (api) {
 
 finished then restart the expo
 npx expo start --clear
+
+
+
+Build command
+"eas build -p android --profile released"
