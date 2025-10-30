@@ -106,7 +106,6 @@ const Admindashboard = () => {
       return;
     }
     setloading(true);
-    setWardenId("");
     const response = await fetchupdatewarden(wardenId);
     if (response.success) {
       setformdata(response.data);
